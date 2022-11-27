@@ -1,0 +1,3025 @@
+{
+    "total": 51,
+    "p": 1,
+    "ps": 100,
+    "paging": {
+        "pageIndex": 1,
+        "pageSize": 100,
+        "total": 51
+    },
+    "effortTotal": 526,
+    "issues": [
+        {
+            "key": "AYSVUcpMuhtMTUutFFij",
+            "rule": "java:S1192",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+            "project": "cim",
+            "line": 80,
+            "hash": "4794d5a3e8c2536f9c2c30b8951dfcc8",
+            "textRange": {
+                "startLine": 80,
+                "endLine": 80,
+                "startOffset": 90,
+                "endOffset": 108
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+                            "textRange": {
+                                "startLine": 80,
+                                "endLine": 80,
+                                "startOffset": 90,
+                                "endOffset": 108
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+                            "textRange": {
+                                "startLine": 120,
+                                "endLine": 120,
+                                "startOffset": 91,
+                                "endOffset": 109
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+                            "textRange": {
+                                "startLine": 133,
+                                "endLine": 133,
+                                "startOffset": 91,
+                                "endOffset": 109
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+                            "textRange": {
+                                "startLine": 151,
+                                "endLine": 151,
+                                "startOffset": 93,
+                                "endOffset": 111
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+                            "textRange": {
+                                "startLine": 192,
+                                "endLine": 192,
+                                "startOffset": 91,
+                                "endOffset": 109
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Define a constant instead of duplicating this literal \"yyyy-MM-dd HH:mm\" 5 times.",
+            "effort": "12min",
+            "debt": "12min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "design"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-13T23:19:20+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcp0uhtMTUutFFip",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseController.java",
+            "project": "cim",
+            "line": 54,
+            "hash": "2e107b0c1b9f42ef56270b7687abf0db",
+            "textRange": {
+                "startLine": 54,
+                "endLine": 54,
+                "startOffset": 15,
+                "endOffset": 19
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-08T20:32:28+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcp0uhtMTUutFFio",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseController.java",
+            "project": "cim",
+            "line": 55,
+            "hash": "21d47ed3712915c637b84f6adf12b9c0",
+            "textRange": {
+                "startLine": 55,
+                "endLine": 55,
+                "startOffset": 15,
+                "endOffset": 19
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-08T20:32:28+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcp0uhtMTUutFFiq",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseController.java",
+            "project": "cim",
+            "line": 95,
+            "hash": "3d6a21d11179d7f6cc4c92bb860fa4e9",
+            "textRange": {
+                "startLine": 95,
+                "endLine": 95,
+                "startOffset": 77,
+                "endOffset": 81
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-14T13:49:44+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcqDuhtMTUutFFis",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+            "project": "cim",
+            "line": 46,
+            "hash": "a3e986f6e5561e88ecdf6f7f5418e72f",
+            "textRange": {
+                "startLine": 46,
+                "endLine": 46,
+                "startOffset": 15,
+                "endOffset": 19
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-11T00:08:28+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcqDuhtMTUutFFit",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+            "project": "cim",
+            "line": 51,
+            "hash": "a3e986f6e5561e88ecdf6f7f5418e72f",
+            "textRange": {
+                "startLine": 51,
+                "endLine": 51,
+                "startOffset": 15,
+                "endOffset": 19
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-11T00:08:28+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcqDuhtMTUutFFir",
+            "rule": "java:S1192",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+            "project": "cim",
+            "line": 72,
+            "hash": "e2bcb7ed2aebbd713b65a92b9eb3aad5",
+            "textRange": {
+                "startLine": 72,
+                "endLine": 72,
+                "startOffset": 99,
+                "endOffset": 117
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+                            "textRange": {
+                                "startLine": 72,
+                                "endLine": 72,
+                                "startOffset": 99,
+                                "endOffset": 117
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+                            "textRange": {
+                                "startLine": 84,
+                                "endLine": 84,
+                                "startOffset": 100,
+                                "endOffset": 118
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+                            "textRange": {
+                                "startLine": 96,
+                                "endLine": 96,
+                                "startOffset": 100,
+                                "endOffset": 118
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+                            "textRange": {
+                                "startLine": 116,
+                                "endLine": 116,
+                                "startOffset": 100,
+                                "endOffset": 118
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Define a constant instead of duplicating this literal \"yyyy-MM-dd HH:mm\" 4 times.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "design"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-11T00:08:28+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcppuhtMTUutFFin",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java",
+            "project": "cim",
+            "line": 47,
+            "hash": "2e107b0c1b9f42ef56270b7687abf0db",
+            "textRange": {
+                "startLine": 47,
+                "endLine": 47,
+                "startOffset": 13,
+                "endOffset": 17
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-09T11:41:44+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcppuhtMTUutFFim",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java",
+            "project": "cim",
+            "line": 48,
+            "hash": "e6a689b6c2dd498424ce75793340b23a",
+            "textRange": {
+                "startLine": 48,
+                "endLine": 48,
+                "startOffset": 13,
+                "endOffset": 17
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-09T11:41:44+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcppuhtMTUutFFil",
+            "rule": "java:S3864",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java",
+            "project": "cim",
+            "line": 49,
+            "hash": "fff6a11a43e7fb572d59742023d330e7",
+            "textRange": {
+                "startLine": 49,
+                "endLine": 49,
+                "startOffset": 13,
+                "endOffset": 17
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove this use of \"Stream.peek\".",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8",
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-09T11:41:44+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcppuhtMTUutFFik",
+            "rule": "java:S1066",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java",
+            "project": "cim",
+            "line": 58,
+            "hash": "717b74cf2f9bcda75227c4c690c22921",
+            "textRange": {
+                "startLine": 58,
+                "endLine": 58,
+                "startOffset": 6,
+                "endOffset": 8
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java",
+                            "textRange": {
+                                "startLine": 57,
+                                "endLine": 57,
+                                "startOffset": 4,
+                                "endOffset": 6
+                            }
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Merge this if statement with the enclosing one.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "clumsy"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T15:39:11+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcjAuhtMTUutFFiN",
+            "rule": "java:S120",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEvent.java",
+            "project": "cim",
+            "line": 1,
+            "hash": "606dde58d90098e8fe86fd617a2f8728",
+            "textRange": {
+                "startLine": 1,
+                "endLine": 1,
+                "startOffset": 8,
+                "endOffset": 56
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this package name to match the regular expression '^[a-z_]+(\\.[a-z_][a-z0-9_]*)*$'.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-14T01:36:38+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUci4uhtMTUutFFiK",
+            "rule": "java:S120",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventListener.java",
+            "project": "cim",
+            "line": 1,
+            "hash": "606dde58d90098e8fe86fd617a2f8728",
+            "textRange": {
+                "startLine": 1,
+                "endLine": 1,
+                "startOffset": 8,
+                "endOffset": 56
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this package name to match the regular expression '^[a-z_]+(\\.[a-z_][a-z0-9_]*)*$'.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-14T01:36:38+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUci4uhtMTUutFFiL",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventListener.java",
+            "project": "cim",
+            "line": 16,
+            "hash": "f22e836422e53436bb94fd7d53ca4e5b",
+            "textRange": {
+                "startLine": 16,
+                "endLine": 16,
+                "startOffset": 4,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T19:53:03+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUci4uhtMTUutFFiM",
+            "rule": "java:S131",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventListener.java",
+            "project": "cim",
+            "line": 17,
+            "hash": "a20f67d5e20f52bbcfd7c0b7c011b42f",
+            "textRange": {
+                "startLine": 17,
+                "endLine": 17,
+                "startOffset": 4,
+                "endOffset": 10
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Add a default case to this switch.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T19:53:03+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUci4uhtMTUutFFiJ",
+            "rule": "java:S1301",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventListener.java",
+            "project": "cim",
+            "line": 17,
+            "hash": "a20f67d5e20f52bbcfd7c0b7c011b42f",
+            "textRange": {
+                "startLine": 17,
+                "endLine": 17,
+                "startOffset": 4,
+                "endOffset": 10
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this \"switch\" statement by \"if\" statements to increase readability.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T19:53:03+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcjOuhtMTUutFFiO",
+            "rule": "java:S120",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventPublisher.java",
+            "project": "cim",
+            "line": 1,
+            "hash": "606dde58d90098e8fe86fd617a2f8728",
+            "textRange": {
+                "startLine": 1,
+                "endLine": 1,
+                "startOffset": 8,
+                "endOffset": 56
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this package name to match the regular expression '^[a-z_]+(\\.[a-z_][a-z0-9_]*)*$'.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-14T01:36:38+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcjOuhtMTUutFFiP",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventPublisher.java",
+            "project": "cim",
+            "line": 16,
+            "hash": "631683096b558e564d9444dc3d95a43c",
+            "textRange": {
+                "startLine": 16,
+                "endLine": 16,
+                "startOffset": 4,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T19:53:03+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcjcuhtMTUutFFiQ",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/term/TermEventListener.java",
+            "project": "cim",
+            "line": 32,
+            "hash": "f22e836422e53436bb94fd7d53ca4e5b",
+            "textRange": {
+                "startLine": 32,
+                "endLine": 32,
+                "startOffset": 4,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-14T01:36:38+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcjtuhtMTUutFFiR",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/event/term/TermEventPublisher.java",
+            "project": "cim",
+            "line": 16,
+            "hash": "631683096b558e564d9444dc3d95a43c",
+            "textRange": {
+                "startLine": 16,
+                "endLine": 16,
+                "startOffset": 4,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T19:53:03+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUctHuhtMTUutFFiw",
+            "rule": "java:S100",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/exception/ValidationExceptionHandler.java",
+            "project": "cim",
+            "line": 19,
+            "hash": "e0520a89a241be0c3a2a91c547d576a4",
+            "textRange": {
+                "startLine": 19,
+                "endLine": 19,
+                "startOffset": 27,
+                "endOffset": 42
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-03-15T17:59:22+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUctHuhtMTUutFFix",
+            "rule": "java:S100",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/exception/ValidationExceptionHandler.java",
+            "project": "cim",
+            "line": 33,
+            "hash": "0f30c1751ab26e0f5a3423a80d9a3fd1",
+            "textRange": {
+                "startLine": 33,
+                "endLine": 33,
+                "startOffset": 27,
+                "endOffset": 42
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-08T17:14:19+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcgbuhtMTUutFFiD",
+            "rule": "java:S120",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationGroupSequenceProvider.java",
+            "project": "cim",
+            "line": 1,
+            "hash": "7e408f8e174b89d0b247ecf30c77e31d",
+            "textRange": {
+                "startLine": 1,
+                "endLine": 1,
+                "startOffset": 8,
+                "endOffset": 71
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this package name to match the regular expression '^[a-z_]+(\\.[a-z_][a-z0-9_]*)*$'.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-13T23:19:20+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcgbuhtMTUutFFiE",
+            "rule": "java:S131",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationGroupSequenceProvider.java",
+            "project": "cim",
+            "line": 16,
+            "hash": "a245b151ce33a85539a71eaaba5423fd",
+            "textRange": {
+                "startLine": 16,
+                "endLine": 16,
+                "startOffset": 6,
+                "endOffset": 12
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Add a default case to this switch.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-13T23:19:20+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcb_uhtMTUutFFiC",
+            "rule": "java:S120",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationRequest.java",
+            "project": "cim",
+            "line": 1,
+            "hash": "7e408f8e174b89d0b247ecf30c77e31d",
+            "textRange": {
+                "startLine": 1,
+                "endLine": 1,
+                "startOffset": 8,
+                "endOffset": 71
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this package name to match the regular expression '^[a-z_]+(\\.[a-z_][a-z0-9_]*)*$'.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-13T23:19:20+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcg9uhtMTUutFFiG",
+            "rule": "java:S1611",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newuser/NewUserGroupSequenceProvider.java",
+            "project": "cim",
+            "line": 15,
+            "hash": "9b17b1bc3307668734dab7f5d0b7d175",
+            "textRange": {
+                "startLine": 15,
+                "endLine": 15,
+                "startOffset": 40,
+                "endOffset": 41
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Remove the parentheses around the \"role\" parameter (sonar.java.source not set. Assuming 8 or greater.)",
+            "effort": "2min",
+            "debt": "2min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "java8"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-03-16T13:24:41+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcg9uhtMTUutFFiF",
+            "rule": "java:S1301",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newuser/NewUserGroupSequenceProvider.java",
+            "project": "cim",
+            "line": 16,
+            "hash": "82422f5d81b8c34f436d7a472ddf096e",
+            "textRange": {
+                "startLine": 16,
+                "endLine": 16,
+                "startOffset": 8,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this \"switch\" statement by \"if\" statements to increase readability.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-03-16T13:24:41+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcrXuhtMTUutFFiu",
+            "rule": "java:S1124",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/security/UserDetailsImpl.java",
+            "project": "cim",
+            "line": 22,
+            "hash": "4f975a1129b6be4955e83f462527bb54",
+            "textRange": {
+                "startLine": 22,
+                "endLine": 22,
+                "startOffset": 16,
+                "endOffset": 22
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Reorder the modifiers to comply with the Java Language Specification.",
+            "effort": "2min",
+            "debt": "2min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-03-14T19:10:38+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": true
+        },
+        {
+            "key": "AYSVUckMuhtMTUutFFiS",
+            "rule": "java:S115",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/ConfigServiceImpl.java",
+            "project": "cim",
+            "line": 18,
+            "hash": "e152e0b75d3597c01fc18d4c902c01b9",
+            "textRange": {
+                "startLine": 18,
+                "endLine": 18,
+                "startOffset": 30,
+                "endOffset": 48
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.",
+            "effort": "2min",
+            "debt": "2min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-08T11:13:14+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUckMuhtMTUutFFiT",
+            "rule": "java:S115",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/ConfigServiceImpl.java",
+            "project": "cim",
+            "line": 19,
+            "hash": "3da969949016438b2c9c40faf5504072",
+            "textRange": {
+                "startLine": 19,
+                "endLine": 19,
+                "startOffset": 30,
+                "endOffset": 49
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Rename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.",
+            "effort": "2min",
+            "debt": "2min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "convention"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-07T20:02:02+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcmDuhtMTUutFFic",
+            "rule": "java:S112",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseRoomTimeServiceImpl.java",
+            "project": "cim",
+            "line": 73,
+            "hash": "2243d05914c0858155e1fe11a264ae4d",
+            "textRange": {
+                "startLine": 73,
+                "endLine": 73,
+                "startOffset": 20,
+                "endOffset": 36
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Define and throw a dedicated exception instead of using a generic one.",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe",
+                "error-handling"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-11T13:34:49+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcmDuhtMTUutFFid",
+            "rule": "java:S112",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseRoomTimeServiceImpl.java",
+            "project": "cim",
+            "line": 91,
+            "hash": "2243d05914c0858155e1fe11a264ae4d",
+            "textRange": {
+                "startLine": 91,
+                "endLine": 91,
+                "startOffset": 20,
+                "endOffset": 36
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Define and throw a dedicated exception instead of using a generic one.",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe",
+                "error-handling"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-11T13:34:49+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcm5uhtMTUutFFig",
+            "rule": "java:S135",
+            "severity": "MINOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java",
+            "project": "cim",
+            "line": 36,
+            "hash": "d7506c16c08735fa648750f50938516a",
+            "textRange": {
+                "startLine": 36,
+                "endLine": 36,
+                "startOffset": 4,
+                "endOffset": 7
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java",
+                            "textRange": {
+                                "startLine": 41,
+                                "endLine": 41,
+                                "startOffset": 8,
+                                "endOffset": 17
+                            },
+                            "msg": "\"continue\" statement."
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java",
+                            "textRange": {
+                                "startLine": 49,
+                                "endLine": 49,
+                                "startOffset": 8,
+                                "endOffset": 17
+                            },
+                            "msg": "\"continue\" statement."
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Reduce the total number of break and continue statements in this loop to use at most one.",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "brain-overload"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T19:53:03+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcm5uhtMTUutFFih",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java",
+            "project": "cim",
+            "line": 67,
+            "hash": "b1b648012368b3a76ea08413a918d7da",
+            "textRange": {
+                "startLine": 67,
+                "endLine": 67,
+                "startOffset": 4,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-14T11:36:25+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcm6uhtMTUutFFii",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java",
+            "project": "cim",
+            "line": 74,
+            "hash": "2d8d2ae64f903bea1cc9a27541c3a5c8",
+            "textRange": {
+                "startLine": 74,
+                "endLine": 74,
+                "startOffset": 4,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-13T19:53:03+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUckmuhtMTUutFFiW",
+            "rule": "java:S1192",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+            "project": "cim",
+            "line": 56,
+            "hash": "512bfb7c00cb177c4c0fe400123c9736",
+            "textRange": {
+                "startLine": 56,
+                "endLine": 56,
+                "startOffset": 67,
+                "endOffset": 76
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+                            "textRange": {
+                                "startLine": 56,
+                                "endLine": 56,
+                                "startOffset": 67,
+                                "endOffset": 76
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+                            "textRange": {
+                                "startLine": 62,
+                                "endLine": 62,
+                                "startOffset": 71,
+                                "endOffset": 80
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+                            "textRange": {
+                                "startLine": 68,
+                                "endLine": 68,
+                                "startOffset": 71,
+                                "endOffset": 80
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Define a constant instead of duplicating this literal \" 的课程不存在\" 3 times.",
+            "effort": "8min",
+            "debt": "8min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "design"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-07T21:59:17+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUckmuhtMTUutFFiU",
+            "rule": "java:S112",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+            "project": "cim",
+            "line": 121,
+            "hash": "8ae4d8deb18e0a3af7dd736e1b8dbaaa",
+            "textRange": {
+                "startLine": 121,
+                "endLine": 121,
+                "startOffset": 16,
+                "endOffset": 32
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Define and throw a dedicated exception instead of using a generic one.",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe",
+                "error-handling"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-12T22:17:15+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUckmuhtMTUutFFiV",
+            "rule": "java:S112",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+            "project": "cim",
+            "line": 124,
+            "hash": "eb21a743ff931d91b913f3d6a702ef3c",
+            "textRange": {
+                "startLine": 124,
+                "endLine": 124,
+                "startOffset": 16,
+                "endOffset": 32
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Define and throw a dedicated exception instead of using a generic one.",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe",
+                "error-handling"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-12T22:17:15+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUclJuhtMTUutFFiX",
+            "rule": "java:S3010",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+            "project": "cim",
+            "line": 20,
+            "hash": "ce9eaaade5fdaa6d066bdb00b68080b4",
+            "textRange": {
+                "startLine": 20,
+                "endLine": 20,
+                "startOffset": 4,
+                "endOffset": 17
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+                            "textRange": {
+                                "startLine": 14,
+                                "endLine": 14,
+                                "startOffset": 2,
+                                "endOffset": 51
+                            },
+                            "msg": "Static field declaration."
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Remove this assignment of \"redisTemplate\".",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-05T01:38:49+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUclJuhtMTUutFFiY",
+            "rule": "java:S3010",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+            "project": "cim",
+            "line": 21,
+            "hash": "aa11085c362e44370a9cb80613e013d7",
+            "textRange": {
+                "startLine": 21,
+                "endLine": 21,
+                "startOffset": 4,
+                "endOffset": 21
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+                            "textRange": {
+                                "startLine": 15,
+                                "endLine": 15,
+                                "startOffset": 2,
+                                "endOffset": 74
+                            },
+                            "msg": "Static field declaration."
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Remove this assignment of \"redisHashTemplate\".",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-05T01:38:49+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUclJuhtMTUutFFiZ",
+            "rule": "java:S3010",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+            "project": "cim",
+            "line": 22,
+            "hash": "046640ac839cb1acef5c3fc568f4be11",
+            "textRange": {
+                "startLine": 22,
+                "endLine": 22,
+                "startOffset": 4,
+                "endOffset": 22
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+                            "textRange": {
+                                "startLine": 16,
+                                "endLine": 16,
+                                "startOffset": 2,
+                                "endOffset": 68
+                            },
+                            "msg": "Static field declaration."
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Remove this assignment of \"redisValueTemplate\".",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-05T01:38:49+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcmSuhtMTUutFFie",
+            "rule": "java:S1192",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+            "project": "cim",
+            "line": 17,
+            "hash": "2ace1696fa76888700d92bcbf23edf1d",
+            "textRange": {
+                "startLine": 17,
+                "endLine": 17,
+                "startOffset": 28,
+                "endOffset": 36
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+                            "textRange": {
+                                "startLine": 17,
+                                "endLine": 17,
+                                "startOffset": 28,
+                                "endOffset": 36
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+                            "textRange": {
+                                "startLine": 22,
+                                "endLine": 22,
+                                "startOffset": 21,
+                                "endOffset": 29
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+                            "textRange": {
+                                "startLine": 27,
+                                "endLine": 27,
+                                "startOffset": 24,
+                                "endOffset": 32
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+                            "textRange": {
+                                "startLine": 32,
+                                "endLine": 32,
+                                "startOffset": 24,
+                                "endOffset": 32
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Define a constant instead of duplicating this literal \"token:\" 4 times.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "design"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-05T01:58:31+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcmSuhtMTUutFFif",
+            "rule": "java:S1192",
+            "severity": "CRITICAL",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+            "project": "cim",
+            "line": 37,
+            "hash": "4806665617a1ca11410ae88e793b096f",
+            "textRange": {
+                "startLine": 37,
+                "endLine": 37,
+                "startOffset": 29,
+                "endOffset": 37
+            },
+            "flows": [
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+                            "textRange": {
+                                "startLine": 37,
+                                "endLine": 37,
+                                "startOffset": 29,
+                                "endOffset": 37
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+                            "textRange": {
+                                "startLine": 42,
+                                "endLine": 42,
+                                "startOffset": 22,
+                                "endOffset": 30
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                },
+                {
+                    "locations": [
+                        {
+                            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+                            "textRange": {
+                                "startLine": 47,
+                                "endLine": 47,
+                                "startOffset": 25,
+                                "endOffset": 33
+                            },
+                            "msg": "Duplication"
+                        }
+                    ]
+                }
+            ],
+            "status": "OPEN",
+            "message": "Define a constant instead of duplicating this literal \"tokens\" 3 times.",
+            "effort": "8min",
+            "debt": "8min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "design"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-05T01:58:31+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcltuhtMTUutFFia",
+            "rule": "java:S112",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/UserServiceImpl.java",
+            "project": "cim",
+            "line": 62,
+            "hash": "22e341805636e0bc0ca5efc8dcb50ac8",
+            "textRange": {
+                "startLine": 62,
+                "endLine": 62,
+                "startOffset": 16,
+                "endOffset": 32
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Define and throw a dedicated exception instead of using a generic one.",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe",
+                "error-handling"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-12T22:17:15+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcltuhtMTUutFFib",
+            "rule": "java:S112",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/service/impl/UserServiceImpl.java",
+            "project": "cim",
+            "line": 65,
+            "hash": "f1180e6341479d1ffbc61861a9bd05be",
+            "textRange": {
+                "startLine": 65,
+                "endLine": 65,
+                "startOffset": 16,
+                "endOffset": 32
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Define and throw a dedicated exception instead of using a generic one.",
+            "effort": "20min",
+            "debt": "20min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "cert",
+                "cwe",
+                "error-handling"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-04-12T22:17:15+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcspuhtMTUutFFiv",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/task/TermUpdateTask.java",
+            "project": "cim",
+            "line": 15,
+            "hash": "123346eb6320f7a989f28e7e4f063134",
+            "textRange": {
+                "startLine": 15,
+                "endLine": 15,
+                "startOffset": 4,
+                "endOffset": 14
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-14T01:36:38+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUciduhtMTUutFFiH",
+            "rule": "java:S1118",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/util/AuthUtils.java",
+            "project": "cim",
+            "line": 6,
+            "hash": "35f0489564673950e0c9642cce6fe760",
+            "textRange": {
+                "startLine": 6,
+                "endLine": 6,
+                "startOffset": 13,
+                "endOffset": 22
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Add a private constructor to hide the implicit public one.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "design"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-03-11T01:47:17+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUcimuhtMTUutFFiI",
+            "rule": "java:S1118",
+            "severity": "MAJOR",
+            "component": "cim:src/main/java/com/example/se_h5_back_end/util/ResponseUtils.java",
+            "project": "cim",
+            "line": 10,
+            "hash": "0928aff88311942dae4498e838865fc6",
+            "textRange": {
+                "startLine": 10,
+                "endLine": 10,
+                "startOffset": 13,
+                "endOffset": 26
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Add a private constructor to hide the implicit public one.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "576187975@qq.com",
+            "tags": [
+                "design"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-03-15T11:24:20+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUctiuhtMTUutFFi0",
+            "rule": "java:S1186",
+            "severity": "CRITICAL",
+            "component": "cim:src/test/java/com/example/se_h5_back_end/SeH5BackEndApplicationTests.java",
+            "project": "cim",
+            "line": 17,
+            "hash": "c8cd5f475966971277bee894ce395286",
+            "textRange": {
+                "startLine": 17,
+                "endLine": 17,
+                "startOffset": 7,
+                "endOffset": 11
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "20302010020@fudan.edu.cn",
+            "tags": [
+                "suspicious"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-05-20T16:55:56+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": true
+        },
+        {
+            "key": "AYSVUctWuhtMTUutFFiy",
+            "rule": "common-java:DuplicatedBlocks",
+            "severity": "MAJOR",
+            "component": "cim:src/test/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImplTest.java",
+            "project": "cim",
+            "flows": [],
+            "status": "OPEN",
+            "message": "4 duplicated blocks of code must be removed.",
+            "effort": "50min",
+            "debt": "50min",
+            "author": "",
+            "tags": [
+                "pitfall"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-11-20T21:53:41+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        },
+        {
+            "key": "AYSVUctWuhtMTUutFFiz",
+            "rule": "java:S106",
+            "severity": "MAJOR",
+            "component": "cim:src/test/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImplTest.java",
+            "project": "cim",
+            "line": 91,
+            "hash": "a82ffba21443fee8fee14263e7af6076",
+            "textRange": {
+                "startLine": 91,
+                "endLine": 91,
+                "startOffset": 16,
+                "endOffset": 26
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Replace this use of System.out or System.err by a logger.",
+            "effort": "10min",
+            "debt": "10min",
+            "author": "",
+            "tags": [
+                "bad-practice",
+                "cert",
+                "owasp-a3"
+            ],
+            "transitions": [
+                "confirm",
+                "resolve",
+                "falsepositive",
+                "wontfix"
+            ],
+            "actions": [
+                "set_type",
+                "set_tags",
+                "comment",
+                "set_severity",
+                "assign"
+            ],
+            "comments": [],
+            "creationDate": "2022-11-20T21:53:41+0800",
+            "updateDate": "2022-11-20T21:53:41+0800",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false
+        }
+    ],
+    "components": [
+        {
+            "key": "cim:src/test/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImplTest.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseSelectionEventServiceImplTest.java",
+            "longName": "src/test/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImplTest.java",
+            "path": "src/test/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImplTest.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newuser/NewUserGroupSequenceProvider.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "NewUserGroupSequenceProvider.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/payload/request/newuser/NewUserGroupSequenceProvider.java",
+            "path": "src/main/java/com/example/se_h5_back_end/payload/request/newuser/NewUserGroupSequenceProvider.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationGroupSequenceProvider.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "NewCourseApplicationGroupSequenceProvider.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationGroupSequenceProvider.java",
+            "path": "src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationGroupSequenceProvider.java"
+        },
+        {
+            "key": "cim",
+            "enabled": true,
+            "qualifier": "TRK",
+            "name": "cim",
+            "longName": "cim"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationRequest.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "NewCourseApplicationRequest.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationRequest.java",
+            "path": "src/main/java/com/example/se_h5_back_end/payload/request/newCourseApplication/NewCourseApplicationRequest.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseSelectionApplicationController.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java",
+            "path": "src/main/java/com/example/se_h5_back_end/controller/CourseSelectionApplicationController.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseRoomTimeServiceImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseRoomTimeServiceImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/service/impl/CourseRoomTimeServiceImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/service/impl/CourseRoomTimeServiceImpl.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/event/term/TermEventPublisher.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "TermEventPublisher.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/event/term/TermEventPublisher.java",
+            "path": "src/main/java/com/example/se_h5_back_end/event/term/TermEventPublisher.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "TokenServiceImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/service/impl/TokenServiceImpl.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/service/impl/UserServiceImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "UserServiceImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/service/impl/UserServiceImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/service/impl/UserServiceImpl.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseController.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseController.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/controller/CourseController.java",
+            "path": "src/main/java/com/example/se_h5_back_end/controller/CourseController.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/event/term/TermEventListener.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "TermEventListener.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/event/term/TermEventListener.java",
+            "path": "src/main/java/com/example/se_h5_back_end/event/term/TermEventListener.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseSelectionController.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java",
+            "path": "src/main/java/com/example/se_h5_back_end/controller/CourseSelectionController.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseServiceImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/service/impl/CourseServiceImpl.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventPublisher.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseSelectionEventPublisher.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventPublisher.java",
+            "path": "src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventPublisher.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseSelectionEventServiceImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/service/impl/CourseSelectionEventServiceImpl.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEvent.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseSelectionEvent.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEvent.java",
+            "path": "src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEvent.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseApplicationController.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java",
+            "path": "src/main/java/com/example/se_h5_back_end/controller/CourseApplicationController.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventListener.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "CourseSelectionEventListener.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventListener.java",
+            "path": "src/main/java/com/example/se_h5_back_end/event/courseSelection/CourseSelectionEventListener.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/service/impl/ConfigServiceImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "ConfigServiceImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/service/impl/ConfigServiceImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/service/impl/ConfigServiceImpl.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "RedisServiceImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/service/impl/RedisServiceImpl.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/security/UserDetailsImpl.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "UserDetailsImpl.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/security/UserDetailsImpl.java",
+            "path": "src/main/java/com/example/se_h5_back_end/security/UserDetailsImpl.java"
+        },
+        {
+            "key": "cim:src/test/java/com/example/se_h5_back_end/SeH5BackEndApplicationTests.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "SeH5BackEndApplicationTests.java",
+            "longName": "src/test/java/com/example/se_h5_back_end/SeH5BackEndApplicationTests.java",
+            "path": "src/test/java/com/example/se_h5_back_end/SeH5BackEndApplicationTests.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/task/TermUpdateTask.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "TermUpdateTask.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/task/TermUpdateTask.java",
+            "path": "src/main/java/com/example/se_h5_back_end/task/TermUpdateTask.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/util/ResponseUtils.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "ResponseUtils.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/util/ResponseUtils.java",
+            "path": "src/main/java/com/example/se_h5_back_end/util/ResponseUtils.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/util/AuthUtils.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "AuthUtils.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/util/AuthUtils.java",
+            "path": "src/main/java/com/example/se_h5_back_end/util/AuthUtils.java"
+        },
+        {
+            "key": "cim:src/main/java/com/example/se_h5_back_end/exception/ValidationExceptionHandler.java",
+            "enabled": true,
+            "qualifier": "FIL",
+            "name": "ValidationExceptionHandler.java",
+            "longName": "src/main/java/com/example/se_h5_back_end/exception/ValidationExceptionHandler.java",
+            "path": "src/main/java/com/example/se_h5_back_end/exception/ValidationExceptionHandler.java"
+        }
+    ],
+    "rules": [
+        {
+            "key": "java:S100",
+            "name": "Method names should comply with a naming convention",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S1192",
+            "name": "String literals should not be duplicated",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S3010",
+            "name": "Static fields should not be updated in constructors",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S115",
+            "name": "Constant names should comply with a naming convention",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S120",
+            "name": "Package names should comply with a naming convention",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S106",
+            "name": "Standard outputs should not be used directly to log anything",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S112",
+            "name": "Generic exceptions should never be thrown",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S135",
+            "name": "Loops should not contain more than a single \"break\" or \"continue\" statement",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S131",
+            "name": "\"switch\" statements should have \"default\" clauses",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S1611",
+            "name": "Parentheses should be removed from a single lambda input parameter when its type is inferred",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S3864",
+            "name": "\"Stream.peek\" should be used with caution",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S1301",
+            "name": "\"switch\" statements should have at least 3 \"case\" clauses",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S1186",
+            "name": "Methods should not be empty",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S1066",
+            "name": "Collapsible \"if\" statements should be merged",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S1124",
+            "name": "Modifiers should be declared in the correct order",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "java:S1118",
+            "name": "Utility classes should not have public constructors",
+            "lang": "java",
+            "status": "READY",
+            "langName": "Java"
+        },
+        {
+            "key": "common-java:DuplicatedBlocks",
+            "name": "Source files should not have any duplicated blocks",
+            "lang": "java",
+            "status": "DEPRECATED",
+            "langName": "Java"
+        }
+    ],
+    "users": [
+        {
+            "login": "admin",
+            "name": "Administrator",
+            "active": true
+        }
+    ],
+    "languages": [
+        {
+            "key": "py",
+            "name": "Python"
+        },
+        {
+            "key": "go",
+            "name": "Go"
+        },
+        {
+            "key": "kotlin",
+            "name": "Kotlin"
+        },
+        {
+            "key": "terraform",
+            "name": "Terraform"
+        },
+        {
+            "key": "cloudformation",
+            "name": "CloudFormation"
+        },
+        {
+            "key": "kubernetes",
+            "name": "Kubernetes"
+        },
+        {
+            "key": "js",
+            "name": "JavaScript"
+        },
+        {
+            "key": "ts",
+            "name": "TypeScript"
+        },
+        {
+            "key": "css",
+            "name": "CSS"
+        },
+        {
+            "key": "ruby",
+            "name": "Ruby"
+        },
+        {
+            "key": "scala",
+            "name": "Scala"
+        },
+        {
+            "key": "cs",
+            "name": "C#"
+        },
+        {
+            "key": "java",
+            "name": "Java"
+        },
+        {
+            "key": "web",
+            "name": "HTML"
+        },
+        {
+            "key": "jsp",
+            "name": "JSP"
+        },
+        {
+            "key": "flex",
+            "name": "Flex"
+        },
+        {
+            "key": "xml",
+            "name": "XML"
+        },
+        {
+            "key": "php",
+            "name": "PHP"
+        },
+        {
+            "key": "text",
+            "name": "Text"
+        },
+        {
+            "key": "vbnet",
+            "name": "VB.NET"
+        },
+        {
+            "key": "yaml",
+            "name": "YAML"
+        },
+        {
+            "key": "json",
+            "name": "JSON"
+        }
+    ],
+    "facets": []
+}
