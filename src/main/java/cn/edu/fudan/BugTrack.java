@@ -1,10 +1,7 @@
 package cn.edu.fudan;
 
-/**
- * Hello world!
- *
- */
-public class App 
+
+public class BugTrack
 {
     public static void main( String[] args )
     {
