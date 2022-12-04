@@ -9,9 +9,6 @@ import java.util.Properties;
 
 public class DBConnection {
 
-    static Connection conn;
-    static PreparedStatement ps;
-
     public static Connection getConn() {
         Properties properties = new Properties();
         ClassLoader classLoader = DBConnection.class.getClassLoader();

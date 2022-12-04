@@ -48,6 +48,13 @@
       <artifactId>org.eclipse.jgit</artifactId>
       <version>4.4.1.201607150455-r</version>
     </dependency>
+    <dependency>
+      <groupId>cn.edu.fudan</groupId>
+      <artifactId>issue</artifactId>
+      <version>1.0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/issue-1.0.0-jar-with-dependencies.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
