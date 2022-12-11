@@ -7,7 +7,6 @@ import cn.edu.fudan.entity.Location;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,16 +16,11 @@ import java.util.*;
 
 
 public class issue_info {
-    public static Map<String, String> toMap(String jsonStr,int commit_id) {
+    private static final InstanceDAO instanceDAO=new InstanceDAO();
+    public static void toMap(String jsonStr,int commit_id) {
         // jsonString转换成Map
-        Instance instance=new Instance();
         Location first_location=new Location();
         List<Location> related=new ArrayList<>();
-
-        Map<String, String> jsonMapLocation;
-        Iterator RangeIt;
-
-        instance.setId(commit_id);
 
         Map<String, String> jsonMap = JSON.parseObject(jsonStr, new TypeReference<HashMap<String, String>>() {
         });
@@ -37,6 +31,9 @@ public class issue_info {
             key=it.next().toString();
             value=jsonMap.get(key);
             if(key=="issues"){
+                Instance instance=new Instance();
+                instance.setCommitId(commit_id);
+                instance.setId(0);
                 List<Map<String,String>> listObjectFir = (List<Map<String,String>>) JSONArray.parse(value);
                 System.out.println("利用JSONArray中的parse方法来解析json数组字符串");
                 for(Map<String,String> mapList : listObjectFir){
@@ -50,74 +47,86 @@ public class issue_info {
                             case "creationDate":instance.setCreationDate(entry.getValue().toString());break;
                             case "updateDate":instance.setUpdateDate(entry.getValue().toString());break;
                             case "component":first_location.setComponent(entry.getValue().toString());break;
-                            case "textRange":
-                                jsonMapLocation = JSON.parseObject(entry.getValue().toString(), new TypeReference<HashMap<String, String>>() {
-                                });
-                                RangeIt=jsonMapLocation.keySet().iterator();
-                                while(RangeIt.hasNext()){
-                                    String RangeKey;
-                                    String RangeValue;
-                                    RangeKey=RangeIt.next().toString();
-                                    RangeValue=jsonMapLocation.get(key);
-                                    switch (RangeKey){
-                                        case "startLine":first_location.setStartLine(Integer.parseInt(RangeValue));break;
-                                        case "endLine":first_location.setEndLine(Integer.parseInt(RangeValue));break;
-                                        case "startOffset":first_location.setStartOffset(Integer.parseInt(RangeValue));break;
-                                        case "endOffset":first_location.setEndOffset(Integer.parseInt(RangeValue));break;
-                                        default:;
-                                    }
-                                }
-                                break;
+                            case "textRange": Location temp=LocationstoMap(entry.getValue().toString(),first_location);
+                            first_location.setStartOffset(temp.getStartOffset());
+                            first_location.setEndOffset(temp.getEndOffset());
+                            first_location.setStartLine(temp.getStartLine());
+                            first_location.setEndLine(temp.getEndLine());
+                            break;
                             case "flows":
-                                List<Map<String,String>> listObjectFirFlows = (List<Map<String,String>>) JSONArray.parse(value);
+                                System.out.println("\n");
+                                List<Map<String,String>> listObjectFirFlows = (List<Map<String,String>>) JSONArray.parse(entry.getValue().toString());
                                 for(Map<String,String> Flows : listObjectFirFlows){
                                     Location location=new Location();
                                     for (Map.Entry entryFlows : Flows.entrySet()){
-                                        switch (entryFlows.toString()){
-                                            case "component":location.setComponent(entry.getValue().toString());break;
-                                            case "textRange":
-                                                jsonMapLocation = JSON.parseObject(entry.getValue().toString(), new TypeReference<HashMap<String, String>>() {
-                                                });
-                                                RangeIt=jsonMapLocation.keySet().iterator();
-                                                while(RangeIt.hasNext()){
-                                                    String RangeKey;
-                                                    String RangeValue;
-                                                    RangeKey=RangeIt.next().toString();
-                                                    RangeValue=jsonMapLocation.get(key);
-                                                    switch (RangeKey){
-                                                        case "startLine":location.setStartLine(Integer.parseInt(RangeValue));break;
-                                                        case "endLine":location.setEndLine(Integer.parseInt(RangeValue));break;
-                                                        case "startOffset":location.setStartOffset(Integer.parseInt(RangeValue));break;
-                                                        case "endOffset":location.setEndOffset(Integer.parseInt(RangeValue));break;
-                                                        default:;
+                                        switch (entryFlows.getKey().toString()){
+                                            case "locations":
+                                                List<Map<String,String>> listObjectFirLocations = (List<Map<String,String>>) JSONArray.parse(entryFlows.getValue().toString());
+                                                for(Map<String,String> Locations : listObjectFirLocations){
+                                                    for(Map.Entry loc :Locations.entrySet()) {
+                                                        //System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
+                                                        switch (loc.getKey().toString()) {
+                                                            case "component":System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
+                                                                location.setComponent(loc.getValue().toString());
+                                                                break;
+                                                            case "textRange":System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
+                                                                Location temp_loc= LocationstoMap(loc.getValue().toString(), location);
+                                                                location.setStartOffset(temp_loc.getStartOffset());
+                                                                location.setEndOffset(temp_loc.getEndOffset());
+                                                                location.setStartLine(temp_loc.getStartLine());
+                                                                location.setEndLine(temp_loc.getEndLine());
+                                                                break;
+                                                            default:;
+                                                        }
                                                     }
                                                 }
-                                                break;
-                                            default:
+                                            default:;
                                         }
                                     }
                                     related.add(location);
                                 }
                             default:;
                         }
-                        System.out.println( entry.getKey()  + "  " +entry.getValue());
+                        System.out.println( entry.getKey().toString()  + "  " +entry.getValue().toString());
                     }
                     System.out.println("\n\n");
+                    if(instance.getSeverity()==null)System.out.println("error");
+                    int inst_id=instanceDAO.insert(instance);
+                    LocationDAO locationDAO=new LocationDAO();
+                    first_location.setInstId(inst_id);
+                    locationDAO.insert(first_location);
+                    for(int i = 0; i<related.size(); i++) {
+                        Location location=related.get(i);
+                        location.setInstId(inst_id);
+                        locationDAO.insert(location);
+                    }
+                    related.clear();
                 }
             }
         }
-        InstanceDAO instanceDAO=new InstanceDAO();
-        int inst_id=instanceDAO.insert(instance);
-        LocationDAO locationDAO=new LocationDAO();
-        first_location.setInstId(inst_id);
-        locationDAO.insert(first_location);
-        for(int i = 0; i<related.size(); i++) {
-            Location location=related.get(i);
-            location.setInstId(inst_id);
-            locationDAO.insert(location);
-        }
-        return jsonMap;
     }
+
+    public static Location LocationstoMap(String jsonStr,Location location) {
+        // jsonString转换成Map
+        Map<String, String> jsonMap = JSON.parseObject(jsonStr, new TypeReference<HashMap<String, String>>() {
+        });
+        Iterator it=jsonMap.keySet().iterator();
+        while(it.hasNext()){
+            String key;
+            String value;
+            key=it.next().toString();
+            value=jsonMap.get(key);
+            switch (key){
+                case "startLine":location.setStartLine(Integer.parseInt(value));break;
+                case "endLine":location.setEndLine(Integer.parseInt(value));break;
+                case "startOffset":location.setStartOffset(Integer.parseInt(value));break;
+                case "endOffset":location.setEndOffset(Integer.parseInt(value));break;
+                default:;
+            }
+        }
+        return location;
+    }
+
 
     public static String httpGet(String url){
         StringBuilder result = new StringBuilder();
@@ -151,7 +160,7 @@ public class issue_info {
         return result.toString();
     }
 
-    private static void setGetPropertyUser(@NotNull URLConnection connection) {
+    private static void setGetPropertyUser(URLConnection connection) {
 //        connection.setRequestProperty("accept", "*/*");
 //        connection.setRequestProperty("connection", "Keep-Alive");
 //        connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");

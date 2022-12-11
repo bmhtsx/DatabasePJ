@@ -1,5 +1,6 @@
 package cn.edu.fudan;
 
+import java.io.FileReader;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,8 +17,7 @@ public class DBConnection {
 
         // 读取JDBC配置文件，进行连接
         try {
-            InputStream is = classLoader.getResourceAsStream("jdbc.properties");
-            properties.load(is);
+            properties.load(new FileReader("src/jdbc.properties"));
             String user = properties.getProperty("user");
             String password = properties.getProperty("password");
             String url = properties.getProperty("url");
