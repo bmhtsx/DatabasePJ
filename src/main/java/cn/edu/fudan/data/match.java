@@ -127,13 +127,13 @@ public class match {
                 }
                 return;
             }
-            AnalyzerUtil.addExtraAttributeInRawIssues(preRawIssueList, baseRepoPath);
-            AnalyzerUtil.addExtraAttributeInRawIssues(curRawIssueList, baseRepoPath);
+            AnalyzerUtil.addExtraAttributeInRawIssues(preRawIssueList, commit.getRepository());
+            AnalyzerUtil.addExtraAttributeInRawIssues(curRawIssueList, commit.getRepository());
 
             for (RawIssue rawIssue : curRawIssueList) {
                 String component=rawIssue.getFileName();
                 String filepath=component.substring(component.indexOf(":")+1);
-                RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(baseRepoPath + SEPARATOR + filepath));
+                RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(commit.getRepository() + filepath));
                 if(rawIssue.getMappedRawIssue()==null){
                     InstCase instcase=new InstCase();
                     instcase.setCommitLast(commit.getCommitHash());
