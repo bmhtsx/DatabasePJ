@@ -14,8 +14,8 @@ import java.sql.SQLException;
 
 public class scan {
     int commit_id;
-    int parent_commit_id;
-    String parent_commit_hash;
+    int parent_commit_id=-1;
+    String parent_commit_hash=null;
 
     Connection conn = null;
     PreparedStatement ps = null;

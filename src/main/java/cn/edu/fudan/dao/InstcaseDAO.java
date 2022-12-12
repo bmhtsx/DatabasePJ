@@ -38,6 +38,7 @@ public class InstcaseDAO {
             sql = "select LAST_INSERT_ID();";
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            rs.next();
             res = rs.getInt(1);
 
         } catch (SQLException e) {

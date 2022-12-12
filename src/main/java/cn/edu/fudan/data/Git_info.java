@@ -79,8 +79,9 @@ public class Git_info {
                 latest_commit.setCommitTime(revCommit.getAuthorIdent().getWhen().toString());
                 latest_commit.setBranch("master");
                 latest_commit.setCommitter(revCommit.getAuthorIdent().getName());
-                latest_commit.setRepository("D:\\学习资料\\作业\\程序设计\\软件工程\\git_test\\SE_H5_Back_End\\.git");
+                latest_commit.setRepository("D:\\学习资料\\作业\\程序设计\\软件工程\\git_test\\SE_H5_Back_End");
                 git_id= c.insert(latest_commit);
+                break;
             }
         }catch (NoHeadException e) {
             e.printStackTrace();

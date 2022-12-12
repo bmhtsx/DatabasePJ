@@ -20,11 +20,11 @@ CREATE TABLE `instance` (
 DROP TABLE IF EXISTS `commit`;
 CREATE TABLE `commit` (
     `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-    `commit_hash` varchar(30) NOT NULL,
+    `commit_hash` varchar(50) NOT NULL,
     `branch` varchar(30) NOT NULL,
-    `repository` varchar(30) NOT NULL,
+    `repository` varchar(100) NOT NULL,
     `committer` varchar(50) NOT NULL,
-    `commit_time` varchar(24) NOT NULL,
+    `commit_time` varchar(40) NOT NULL,
     primary key (`id`)
 );
 
@@ -51,10 +51,10 @@ CREATE TABLE `instcase` (
     `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
     `status` varchar(7) NOT NULL,
     `type` varchar(10) NOT NULL,
-    `commit_new` varchar(30) NOT NULL,
-    `commit_last` varchar(30) NOT NULL,
-    `create_time` varchar(24) NOT NULL,
-    `update_time` varchar(24) NOT NULL,
+    `commit_new` varchar(50) NOT NULL,
+    `commit_last` varchar(50) NOT NULL,
+    `create_time` varchar(40) NOT NULL,
+    `update_time` varchar(40) NOT NULL,
     `committer_new` varchar(50) NOT NULL,
     `committer_last` varchar(50) NOT NULL,
     primary key (`id`)

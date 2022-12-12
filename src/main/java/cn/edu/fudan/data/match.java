@@ -31,41 +31,47 @@ public class match {
         try {
             conn = DBConnection.getConn();
             String sql = "select id,type,message FROM instance where commit_id=?;";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,parent_commit_id);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                RawIssue preRawIssue1 = new RawIssue();
-                int inst_id=rs.getInt("id");
-                String type=rs.getString("type");
-                String detail=rs.getString("message");
+            ResultSet rs;
+            if(parent_commit_id!=-1){
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,parent_commit_id);
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    RawIssue preRawIssue1 = new RawIssue();
+                    int inst_id=rs.getInt("id");
+                    String type=rs.getString("type");
+                    String detail=rs.getString("message");
 
-                preRawIssue1.setUuid(""+inst_id);
-                preRawIssue1.setType(type);
+                    preRawIssue1.setUuid(""+inst_id);
+                    preRawIssue1.setType(type);
 
-                preRawIssue1.setDetail(detail);
-                preRawIssue1.setCommitId(""+parent_commit_id);
+                    preRawIssue1.setDetail(detail);
+                    preRawIssue1.setCommitId(""+parent_commit_id);
 
-                Location preLocation1 = new Location();
+                    Location preLocation1 = new Location();
 
-                String loc_sql="select component,start_line,end_line,start_offset FROM location where inst_id=?";
-                ps = conn.prepareStatement(loc_sql);
-                ps.setInt(1,inst_id);
-                ResultSet loc_rs = ps.executeQuery();
-
-                String component=loc_rs.getString("component");
-                preRawIssue1.setFileName(component);
-
-                int start_line=loc_rs.getInt("start_line");
-                int end_line=loc_rs.getInt("end_line");
-                int start_offset=loc_rs.getInt("start_offset");
-                preLocation1.setStartLine(start_line);
-                preLocation1.setEndLine(end_line);
-                preLocation1.setStartToken(start_offset);
-                preRawIssue1.setLocations(Collections.singletonList(preLocation1));
-
-                preRawIssueList.add(preRawIssue1);
+                    String loc_sql="select component,start_line,end_line,start_offset FROM location where inst_id=?";
+                    ps = conn.prepareStatement(loc_sql);
+                    ps.setInt(1,inst_id);
+                    ResultSet loc_rs = ps.executeQuery();
+                    if(loc_rs.next()){
+                        String component=loc_rs.getString("component");
+                        preRawIssue1.setFileName(component);
+                        int start_line=loc_rs.getInt("start_line");
+                        int end_line=loc_rs.getInt("end_line");
+                        int start_offset=loc_rs.getInt("start_offset");
+                        preLocation1.setStartLine(start_line);
+                        preLocation1.setEndLine(end_line);
+                        preLocation1.setStartToken(start_offset);
+                        preRawIssue1.setLocations(Collections.singletonList(preLocation1));
+                    }
+                    else{
+                        break;
+                    }
+                    preRawIssueList.add(preRawIssue1);
+                }
             }
+
 
             sql = "select id,type,message,status FROM instance where commit_id=?;";
             ps = conn.prepareStatement(sql);
@@ -90,32 +96,32 @@ public class match {
                 ps = conn.prepareStatement(loc_sql);
                 ps.setInt(1,inst_id);
                 ResultSet loc_rs = ps.executeQuery();
-
-                String component=loc_rs.getString("component");
-                curRawIssue1.setFileName(component);
-
-                int start_line=loc_rs.getInt("start_line");
-                int end_line=loc_rs.getInt("end_line");
-                int start_offset=loc_rs.getInt("start_offset");
-                curLocation1.setStartLine(start_line);
-                curLocation1.setEndLine(end_line);
-                curLocation1.setStartToken(start_offset);
-                curRawIssue1.setLocations(Collections.singletonList(curLocation1));
-
+                if(loc_rs.next()){
+                    String component=loc_rs.getString("component");
+                    curRawIssue1.setFileName(component);
+                    int start_line=loc_rs.getInt("start_line");
+                    int end_line=loc_rs.getInt("end_line");
+                    int start_offset=loc_rs.getInt("start_offset");
+                    curLocation1.setStartLine(start_line);
+                    curLocation1.setEndLine(end_line);
+                    curLocation1.setStartToken(start_offset);
+                    curRawIssue1.setLocations(Collections.singletonList(curLocation1));
+                }
                 curRawIssueList.add(curRawIssue1);
             }
             InstcaseDAO instcaseDAO=new InstcaseDAO();
             if(preRawIssueList.isEmpty()){
-
+                System.out.println("NnParent");
                 for (RawIssue rawIssue : curRawIssueList) {
                     InstCase instcase=new InstCase();
-                    instcase.setCommitLast(commit.getCommitHash());
+                    instcase.setCommitLast("0");
                     instcase.setCommitNew(commit.getCommitHash());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
+                    System.out.println(commit.getCommitTime());
                     instcase.setCreateTime(commit.getCommitTime());
                     instcase.setUpdateTime(commit.getCommitTime());
-                    instcase.setCommitNew(commit.getCommitter());
+                    instcase.setCommitterNew(commit.getCommitter());
                     instcase.setCommitterLast(commit.getCommitter());
                     instcaseDAO.insert(instcase);
                 }
