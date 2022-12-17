@@ -58,7 +58,7 @@ public class Git_info {
 
     static Git git;
     //历史记录
-    public Commit getHistoryInfo() {
+    public Commit getHistoryInfo(boolean latest) {
         int git_id=0;
         File gitDir = new File("D:\\学习资料\\作业\\程序设计\\软件工程\\git_test\\SE_H5_Back_End\\.git");
         Commit latest_commit=new Commit();
@@ -81,7 +81,12 @@ public class Git_info {
                 latest_commit.setCommitter(revCommit.getAuthorIdent().getName());
                 latest_commit.setRepository("D:\\学习资料\\作业\\程序设计\\软件工程\\git_test\\SE_H5_Back_End");
                 git_id= c.insert(latest_commit);
-                break;
+                if(latest){
+                    break;
+                }
+                else {
+                    
+                }
             }
         }catch (NoHeadException e) {
             e.printStackTrace();

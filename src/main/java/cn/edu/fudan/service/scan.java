@@ -20,7 +20,7 @@ public class scan {
     Connection conn = null;
     PreparedStatement ps = null;
 
-    public void scan_latest()throws IOException {
+    public void scan_latest(){
         try {
             conn = DBConnection.getConn();
             ps = conn.prepareStatement("select MAX(id) FROM commit;");
@@ -38,13 +38,17 @@ public class scan {
         }
 
         Git_info git_info=new Git_info();
-        Commit commit=git_info.getHistoryInfo();
+        Commit commit=git_info.getHistoryInfo(true);
         String s=null;
         s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys=cim&additionalFields=_all&s=FILE_LINE&resolved=false");
         issue_info.toMap(s,commit.getId());
 
         match _match=new match();
         _match.matcher(commit,parent_commit_id,parent_commit_hash);
+    }
+
+    public void scan_all(){
+
     }
 
     public int getCommit_id(){return commit_id;}
