@@ -24,7 +24,7 @@ public class match {
     private static final String SEPARATOR = System.getProperty("file.separator");
     Connection conn = null;
     PreparedStatement ps = null;
-    public void matcher(Commit commit, int parent_commit_id,String parent_commit_hash)throws IOException{
+    public void matcher(Commit commit, int parent_commit_id,String parent_commit_hash){
         List<RawIssue> preRawIssueList = new ArrayList<>();
         List<RawIssue> curRawIssueList = new ArrayList<>();
 
@@ -133,7 +133,9 @@ public class match {
             for (RawIssue rawIssue : curRawIssueList) {
                 String component=rawIssue.getFileName();
                 String filepath=component.substring(component.indexOf(":")+1);
-                RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(commit.getRepository() + filepath));
+                String repository=commit.getRepository();
+                String repository_path=repository.substring(0,repository.indexOf(".git"));
+                RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(repository_path + filepath));
                 if(rawIssue.getMappedRawIssue()==null){
                     InstCase instcase=new InstCase();
                     instcase.setCommitLast(commit.getCommitHash());
@@ -172,7 +174,10 @@ public class match {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
             DBConnection.close(conn, ps);
         }
     }
@@ -253,7 +258,7 @@ public class match {
 
         //3. 进行映射
         // 前一个版本的缺陷 后一个版本的缺陷 当前版本的文件中所有方法及变量名
-        RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(baseRepoPath + SEPARATOR + "cim:src/main/resources/testFile/commit2/test.java"));
+        RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(baseRepoPath + SEPARATOR + "src/main/resources/testFile/commit2/test.java"));
 
         System.out.println("preRawIssue1:matches " + preRawIssue1.getMappedRawIssue().getUuid());
         System.out.println("preRawIssue2:matches " + preRawIssue2.getMappedRawIssue().getUuid());
