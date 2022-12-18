@@ -10,6 +10,7 @@ import cn.edu.fudan.issue.entity.dbo.RawIssue;
 import cn.edu.fudan.issue.util.AnalyzerUtil;
 import cn.edu.fudan.issue.util.AstParserUtil;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,8 +19,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
-public class match {
+public class Matcher {
     private static final String baseRepoPath = System.getProperty("user.dir");
     private static final String SEPARATOR = System.getProperty("file.separator");
     Connection conn = null;
@@ -28,7 +30,11 @@ public class match {
         List<RawIssue> preRawIssueList = new ArrayList<>();
         List<RawIssue> curRawIssueList = new ArrayList<>();
 
+        Properties properties = new Properties();
+
+
         try {
+            properties.load(new FileReader("src/pj_info.properties"));
             conn = DBConnection.getConn();
             String sql = "select id,type,message FROM instance where commit_id=?;";
             ResultSet rs;
@@ -133,8 +139,7 @@ public class match {
             for (RawIssue rawIssue : curRawIssueList) {
                 String component=rawIssue.getFileName();
                 String filepath=component.substring(component.indexOf(":")+1);
-                String repository=commit.getRepository();
-                String repository_path=repository.substring(0,repository.indexOf(".git"));
+                String repository_path=properties.getProperty("git_path");
                 RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(repository_path + filepath));
                 if(rawIssue.getMappedRawIssue()==null){
                     InstCase instcase=new InstCase();
@@ -146,6 +151,7 @@ public class match {
                     instcase.setUpdateTime(commit.getCommitTime());
                     instcase.setCommitNew(commit.getCommitter());
                     instcase.setCommitterLast(commit.getCommitter());
+                    instcase.setDurationTime(0);
                     instcaseDAO.insert(instcase);
                 }
                 else{
@@ -166,12 +172,10 @@ public class match {
                     instcase.setCommitterLast(commit.getCommitter());
                     instcase.setId(id);
                     instcase.setCreateTime(create_time);
+                    instcase.setDurationTime(CalTime.calDurationTime(create_time,commit.getCommitTime()));
                     instcaseDAO.update(instcase);
                 }
             }
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

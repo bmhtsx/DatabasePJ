@@ -3,10 +3,9 @@ package cn.edu.fudan.service;
 import cn.edu.fudan.DBConnection;
 import cn.edu.fudan.data.Git_info;
 import cn.edu.fudan.data.issue_info;
-import cn.edu.fudan.data.match;
+import cn.edu.fudan.data.Matcher;
 import cn.edu.fudan.entity.Commit;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,8 +42,8 @@ public class scan {
         s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys=cim&additionalFields=_all&s=FILE_LINE&resolved=false");
         issue_info.toMap(s,commit.getId());
 
-        match _match=new match();
-        _match.matcher(commit,parent_commit_id,parent_commit_hash);
+        Matcher _matcher =new Matcher();
+        _matcher.matcher(commit,parent_commit_id,parent_commit_hash);
     }
 
     public void scan_all(){

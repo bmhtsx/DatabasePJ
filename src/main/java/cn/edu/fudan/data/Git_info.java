@@ -11,9 +11,13 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.sql.DriverManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import java.util.Properties;
 
 public class Git_info {
     /**
@@ -56,11 +60,20 @@ public class Git_info {
         return versionID;
     }
 
+
     static Git git;
     //历史记录
     public Commit getHistoryInfo(boolean latest) {
+        String git_path="";
+        try {
+            Properties properties = new Properties();
+            properties.load(new FileReader("src/pj_info.properties"));
+            git_path = properties.getProperty("git_path");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         int git_id=0;
-        File gitDir = new File("D:\\学习资料\\作业\\程序设计\\软件工程\\git_test\\SE_H5_Back_End\\.git");
+        File gitDir = new File(git_path+".git");
         Commit latest_commit=new Commit();
         CommitDAO c=new CommitDAO();
         try {
@@ -79,14 +92,12 @@ public class Git_info {
                 latest_commit.setCommitTime(revCommit.getAuthorIdent().getWhen().toString());
                 latest_commit.setBranch("master");
                 latest_commit.setCommitter(revCommit.getAuthorIdent().getName());
-                latest_commit.setRepository("D:\\学习资料\\作业\\程序设计\\软件工程\\git_test\\SE_H5_Back_End");
+                latest_commit.setRepository(git_path);
                 git_id= c.insert(latest_commit);
-                if(latest){
-                    break;
-                }
-                else {
-                    
-                }
+//                if(latest){
+//                    break;
+//                }
+
             }
         }catch (NoHeadException e) {
             e.printStackTrace();

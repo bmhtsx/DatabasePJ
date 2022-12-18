@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -161,10 +162,16 @@ public class issue_info {
     }
 
     private static void setGetPropertyUser(URLConnection connection) {
-//        connection.setRequestProperty("accept", "*/*");
-//        connection.setRequestProperty("connection", "Keep-Alive");
-//        connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-        String authString = "admin:Yuchen0nl1ne";
+        String authString = "";
+        try {
+            Properties properties = new Properties();
+            properties.load(new FileReader("src/pj_info.properties"));
+            String account = properties.getProperty("sonar_account");
+            String password = properties.getProperty("sonar_password");
+            authString=account+':'+password;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         byte[] authEncBytes = Base64.getEncoder().encode(authString.getBytes());
         String authStringEnc = new String(authEncBytes);
         connection.setRequestProperty("Authorization", "Basic " + authStringEnc);
