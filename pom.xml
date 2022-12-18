@@ -25,6 +25,13 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>8.0.31</version>
+    </dependency>
+
     <!--HttpClient-->
     <dependency>
       <groupId>commons-httpclient</groupId>
