@@ -63,7 +63,7 @@ public class Git_info {
 
     static Git git;
     //历史记录
-    public Commit getHistoryInfo(boolean latest) {
+    public Commit getLatestInfo(Commit parent_commit) {
         String git_path="";
         try {
             Properties properties = new Properties();
@@ -93,10 +93,15 @@ public class Git_info {
                 latest_commit.setBranch("master");
                 latest_commit.setCommitter(revCommit.getAuthorIdent().getName());
                 latest_commit.setRepository(git_path);
+                if(revCommit.getParentCount()!=0){
+                    parent_commit.setCommitHash(revCommit.getParent(0).getName());
+                }
+                else {
+                    parent_commit.setCommitHash(null);
+                }
                 git_id= c.insert(latest_commit);
-//                if(latest){
-//                    break;
-//                }
+                break;
+
 
             }
         }catch (NoHeadException e) {

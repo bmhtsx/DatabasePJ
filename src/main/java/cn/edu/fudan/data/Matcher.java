@@ -120,11 +120,11 @@ public class Matcher {
                 System.out.println("NnParent");
                 for (RawIssue rawIssue : curRawIssueList) {
                     InstCase instcase=new InstCase();
-                    instcase.setCommitLast("0");
+                    instcase.setCommitLast(" ");
                     instcase.setCommitNew(commit.getCommitHash());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
-                    System.out.println(commit.getCommitTime());
+                    //System.out.println(commit.getCommitTime());
                     instcase.setCreateTime(commit.getCommitTime());
                     instcase.setUpdateTime(commit.getCommitTime());
                     instcase.setCommitterNew(commit.getCommitter());
@@ -141,9 +141,11 @@ public class Matcher {
                 String filepath=component.substring(component.indexOf(":")+1);
                 String repository_path=properties.getProperty("git_path");
                 RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(repository_path + filepath));
+            }
+            for (RawIssue rawIssue : curRawIssueList) {
                 if(rawIssue.getMappedRawIssue()==null){
                     InstCase instcase=new InstCase();
-                    instcase.setCommitLast(commit.getCommitHash());
+                    instcase.setCommitLast(" ");
                     instcase.setCommitNew(commit.getCommitHash());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
@@ -173,9 +175,17 @@ public class Matcher {
                     instcase.setId(id);
                     instcase.setCreateTime(create_time);
                     instcase.setDurationTime(CalTime.calDurationTime(create_time,commit.getCommitTime()));
+                    if(rawIssue.getStatus()!="OPEN"){
+                        instcase.setCommitLast(commit.getCommitHash());
+                    }
+                    else {
+                        instcase.setCommitLast(" ");
+                    }
+
                     instcaseDAO.update(instcase);
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

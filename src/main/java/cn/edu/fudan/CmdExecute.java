@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.InputStreamReader;
 
 public class CmdExecute {
-    static void exeCmd(String commandStr, String filepath) {
+    public static void exeCmd(String commandStr, String filepath) {
         BufferedReader br = null;
         try {
             Process p = Runtime.getRuntime().exec(commandStr, null, new File(filepath));

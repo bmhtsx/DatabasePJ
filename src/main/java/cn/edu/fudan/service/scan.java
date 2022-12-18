@@ -12,45 +12,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class scan {
-    int commit_id;
-    int parent_commit_id=-1;
-    String parent_commit_hash=null;
+    Commit parent_commit;
 
     Connection conn = null;
     PreparedStatement ps = null;
 
+
     public void scan_latest(){
-        try {
-            conn = DBConnection.getConn();
-            ps = conn.prepareStatement("select MAX(id) FROM commit;");
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            parent_commit_id = rs.getInt(1);
-            ps = conn.prepareStatement("select commit_hash FROM commit where id=?;");
-            rs = ps.executeQuery();
-            rs.next();
-            parent_commit_hash = rs.getString(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.close(conn, ps);
+        Git_info git_info=new Git_info();
+        Commit commit=git_info.getLatestInfo(parent_commit);
+
+        if(parent_commit.getCommitHash()!=null) {
+            try {
+                conn = DBConnection.getConn();
+                ps = conn.prepareStatement("select id FROM commit where commit_hash=? and repository=?;");
+                ps.setString(1, parent_commit.getCommitHash());
+                ps.setString(2, parent_commit.getRepository());
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                parent_commit.setId(rs.getInt(1));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DBConnection.close(conn, ps);
+            }
+        }
+        else {
+            parent_commit.setId(-1);
         }
 
-        Git_info git_info=new Git_info();
-        Commit commit=git_info.getHistoryInfo(true);
+
         String s=null;
         s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys=cim&additionalFields=_all&s=FILE_LINE&resolved=false");
         issue_info.toMap(s,commit.getId());
 
         Matcher _matcher =new Matcher();
-        _matcher.matcher(commit,parent_commit_id,parent_commit_hash);
+        _matcher.matcher(commit,parent_commit.getId(),parent_commit.getCommitHash());
     }
-
-    public void scan_all(){
-
-    }
-
-    public int getCommit_id(){return commit_id;}
-
-    public int getParent_commit_id(){return parent_commit_id;}
 }
