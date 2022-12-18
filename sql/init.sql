@@ -57,5 +57,6 @@ CREATE TABLE `instcase` (
     `update_time` varchar(40) NOT NULL,
     `committer_new` varchar(50) NOT NULL,
     `committer_last` varchar(50) NOT NULL,
+    `duration_time` int NOT NULL,
     primary key (`id`)
 );

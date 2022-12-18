@@ -10,6 +10,7 @@ public class InstCase {
     private String updateTime;
     private String committerNew;
     private String committerLast;
+    private int durationTime;
 
     public int getId() {
         return id;
@@ -81,5 +82,13 @@ public class InstCase {
 
     public void setCommitterLast(String committerLast) {
         this.committerLast = committerLast;
+    }
+
+    public int getDurationTime() {
+        return durationTime;
+    }
+
+    public void setDurationTime(int durationTime) {
+        this.durationTime = durationTime;
     }
 }
