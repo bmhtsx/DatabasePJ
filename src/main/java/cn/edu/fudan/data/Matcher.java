@@ -2,8 +2,10 @@ package cn.edu.fudan.data;
 
 import cn.edu.fudan.DBConnection;
 import cn.edu.fudan.dao.InstcaseDAO;
+import cn.edu.fudan.dao.MatchDAO;
 import cn.edu.fudan.entity.Commit;
 import cn.edu.fudan.entity.InstCase;
+import cn.edu.fudan.entity.Match;
 import cn.edu.fudan.issue.core.process.RawIssueMatcher;
 import cn.edu.fudan.issue.entity.dbo.Location;
 import cn.edu.fudan.issue.entity.dbo.RawIssue;
@@ -36,17 +38,17 @@ public class Matcher {
         try {
             properties.load(new FileReader("src/pj_info.properties"));
             conn = DBConnection.getConn();
-            String sql = "select id,type,message FROM instance where commit_id=?;";
-            ResultSet rs;
+            String sql1 = "select id,type,message FROM instance where commit_id=?;";
+            ResultSet rs1;
             if(parent_commit_id!=-1){
-                ps = conn.prepareStatement(sql);
+                ps = conn.prepareStatement(sql1);
                 ps.setInt(1,parent_commit_id);
-                rs = ps.executeQuery();
-                while(rs.next()){
+                rs1 = ps.executeQuery();
+                while(rs1.next()){
                     RawIssue preRawIssue1 = new RawIssue();
-                    int inst_id=rs.getInt("id");
-                    String type=rs.getString("type");
-                    String detail=rs.getString("message");
+                    int inst_id=rs1.getInt("id");
+                    String type=rs1.getString("type");
+                    String detail=rs1.getString("message");
 
                     preRawIssue1.setUuid(""+inst_id);
                     preRawIssue1.setType(type);
@@ -57,9 +59,9 @@ public class Matcher {
                     Location preLocation1 = new Location();
 
                     String loc_sql="select component,start_line,end_line,start_offset FROM location where inst_id=?";
-                    ps = conn.prepareStatement(loc_sql);
-                    ps.setInt(1,inst_id);
-                    ResultSet loc_rs = ps.executeQuery();
+                    PreparedStatement ps_loc = conn.prepareStatement(loc_sql);
+                    ps_loc.setInt(1,inst_id);
+                    ResultSet loc_rs = ps_loc.executeQuery();
                     if(loc_rs.next()){
                         String component=loc_rs.getString("component");
                         preRawIssue1.setFileName(component);
@@ -74,21 +76,22 @@ public class Matcher {
                     else{
                         break;
                     }
+                    System.out.println("add_a_new_preiss");
                     preRawIssueList.add(preRawIssue1);
                 }
             }
 
 
-            sql = "select id,type,message,status FROM instance where commit_id=?;";
-            ps = conn.prepareStatement(sql);
+            String sql2 = "select id,type,message,status FROM instance where commit_id=?;";
+            ps = conn.prepareStatement(sql2);
             ps.setInt(1,commit.getId());
-            rs = ps.executeQuery();
-            while(rs.next()){
+            ResultSet rs2 = ps.executeQuery();
+            while(rs2.next()){
                 RawIssue curRawIssue1 = new RawIssue();
-                int inst_id=rs.getInt("id");
-                String type=rs.getString("type");
-                String detail=rs.getString("message");
-                String status=rs.getString("status");
+                int inst_id=rs2.getInt("id");
+                String type=rs2.getString("type");
+                String detail=rs2.getString("message");
+                String status=rs2.getString("status");
                 curRawIssue1.setUuid(""+inst_id);
                 curRawIssue1.setType(type);
 
@@ -99,9 +102,9 @@ public class Matcher {
                 Location curLocation1 = new Location();
 
                 String loc_sql="select component,start_line,end_line,start_offset FROM location where inst_id=?";
-                ps = conn.prepareStatement(loc_sql);
-                ps.setInt(1,inst_id);
-                ResultSet loc_rs = ps.executeQuery();
+                PreparedStatement ps_loc = conn.prepareStatement(loc_sql);
+                ps_loc.setInt(1,inst_id);
+                ResultSet loc_rs = ps_loc.executeQuery();
                 if(loc_rs.next()){
                     String component=loc_rs.getString("component");
                     curRawIssue1.setFileName(component);
@@ -113,6 +116,7 @@ public class Matcher {
                     curLocation1.setStartToken(start_offset);
                     curRawIssue1.setLocations(Collections.singletonList(curLocation1));
                 }
+                System.out.println("add_a_new_curiss");
                 curRawIssueList.add(curRawIssue1);
             }
             InstcaseDAO instcaseDAO=new InstcaseDAO();
@@ -120,7 +124,7 @@ public class Matcher {
                 System.out.println("NnParent");
                 for (RawIssue rawIssue : curRawIssueList) {
                     InstCase instcase=new InstCase();
-                    instcase.setCommitLast(" ");
+                    instcase.setCommitLast(commit.getCommitter());
                     instcase.setCommitNew(commit.getCommitHash());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
@@ -136,22 +140,26 @@ public class Matcher {
             AnalyzerUtil.addExtraAttributeInRawIssues(preRawIssueList, commit.getRepository());
             AnalyzerUtil.addExtraAttributeInRawIssues(curRawIssueList, commit.getRepository());
 
+
+            System.out.println("MATCHING"+curRawIssueList.size());
             for (RawIssue rawIssue : curRawIssueList) {
+
                 String component=rawIssue.getFileName();
                 String filepath=component.substring(component.indexOf(":")+1);
                 String repository_path=properties.getProperty("git_path");
+                System.out.println(repository_path + filepath);
                 RawIssueMatcher.match(preRawIssueList, curRawIssueList, AstParserUtil.getMethodsAndFieldsInFile(repository_path + filepath));
             }
             for (RawIssue rawIssue : curRawIssueList) {
                 if(rawIssue.getMappedRawIssue()==null){
                     InstCase instcase=new InstCase();
-                    instcase.setCommitLast(" ");
+                    instcase.setCommitLast(commit.getCommitter());
                     instcase.setCommitNew(commit.getCommitHash());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
                     instcase.setCreateTime(commit.getCommitTime());
                     instcase.setUpdateTime(commit.getCommitTime());
-                    instcase.setCommitNew(commit.getCommitter());
+                    instcase.setCommitterNew(commit.getCommitter());
                     instcase.setCommitterLast(commit.getCommitter());
                     instcase.setDurationTime(0);
                     instcaseDAO.insert(instcase);
@@ -170,17 +178,23 @@ public class Matcher {
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
                     instcase.setUpdateTime(commit.getCommitTime());
-                    instcase.setCommitNew(commit.getCommitter());
+                    instcase.setCommitterNew(commit.getCommitter());
                     instcase.setCommitterLast(commit.getCommitter());
                     instcase.setId(id);
                     instcase.setCreateTime(create_time);
-                    instcase.setDurationTime(CalTime.calDurationTime(create_time,commit.getCommitTime()));
+                    instcase.setDurationTime(114514);//CalTime.calDurationTime(create_time,commit.getCommitTime()));
                     if(rawIssue.getStatus()!="OPEN"){
                         instcase.setCommitLast(commit.getCommitHash());
                     }
                     else {
                         instcase.setCommitLast(" ");
                     }
+
+                    Match match=new Match();
+                    match.setParentId(parent_commit_id);
+                    match.setChildId(commit.getId());
+                    MatchDAO m=new MatchDAO();
+                    m.insert(match);
 
                     instcaseDAO.update(instcase);
                 }
@@ -242,7 +256,7 @@ public class Matcher {
         RawIssue curRawIssue1 = new RawIssue();
         curRawIssue1.setUuid("curRawIssue1");
         curRawIssue1.setType(type);
-        curRawIssue1.setFileName("cim:src/main/resources/testFile/commit2/test.java");
+        curRawIssue1.setFileName("src/main/resources/testFile/commit2/test.java");
         curRawIssue1.setDetail("Cast one of the operands of this multiplication operation to a \"long\".---MINOR");
         curRawIssue1.setCommitId("commit2");
         Location curLocation1 = new Location();

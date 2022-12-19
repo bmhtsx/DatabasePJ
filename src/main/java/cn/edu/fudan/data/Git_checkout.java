@@ -91,8 +91,8 @@ public class Git_checkout {
                 int git_id=c.insert(commitMessage);
                 String s=null;
                 s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys=cim&additionalFields=_all&s=FILE_LINE&resolved=false");
-                issue_info.toMap(s,commitMessage.getId());
-
+                issue_info.toMap(s,git_id);
+                commitMessage.setId(git_id);
                 Connection conn = null;
                 PreparedStatement ps = null;
                 conn = DBConnection.getConn();

@@ -55,7 +55,7 @@ public class issue_info {
                             first_location.setEndLine(temp.getEndLine());
                             break;
                             case "flows":
-                                System.out.println("\n");
+                                //System.out.println("\n");
                                 List<Map<String,String>> listObjectFirFlows = (List<Map<String,String>>) JSONArray.parse(entry.getValue().toString());
                                 for(Map<String,String> Flows : listObjectFirFlows){
                                     Location location=new Location();
@@ -67,10 +67,10 @@ public class issue_info {
                                                     for(Map.Entry loc :Locations.entrySet()) {
                                                         //System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
                                                         switch (loc.getKey().toString()) {
-                                                            case "component":System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
+                                                            case "component"://System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
                                                                 location.setComponent(loc.getValue().toString());
                                                                 break;
-                                                            case "textRange":System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
+                                                            case "textRange"://System.out.println("\nNULL:"+loc.getKey()+" "+loc.getValue().toString()+"\n");
                                                                 Location temp_loc= LocationstoMap(loc.getValue().toString(), location);
                                                                 location.setStartOffset(temp_loc.getStartOffset());
                                                                 location.setEndOffset(temp_loc.getEndOffset());
@@ -88,10 +88,10 @@ public class issue_info {
                                 }
                             default:;
                         }
-                        System.out.println( entry.getKey().toString()  + "  " +entry.getValue().toString());
+                        //System.out.println( entry.getKey().toString()  + "  " +entry.getValue().toString());
                     }
-                    System.out.println("\n\n");
-                    if(instance.getSeverity()==null)System.out.println("error");
+                    //System.out.println("\n\n");
+                    //if(instance.getSeverity()==null)System.out.println("error");
                     int inst_id=instanceDAO.insert(instance);
                     LocationDAO locationDAO=new LocationDAO();
                     first_location.setInstId(inst_id);
