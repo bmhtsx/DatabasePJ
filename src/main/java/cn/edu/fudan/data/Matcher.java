@@ -191,8 +191,8 @@ public class Matcher {
                     }
 
                     Match match=new Match();
-                    match.setParentId(parent_commit_id);
-                    match.setChildId(commit.getId());
+                    match.setParentId(Integer.parseInt(rawIssue.getMappedRawIssue().getUuid()));
+                    match.setChildId(Integer.parseInt(rawIssue.getUuid()));
                     MatchDAO m=new MatchDAO();
                     m.insert(match);
 
