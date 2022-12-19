@@ -55,4 +55,16 @@ public class Commit {
     public void setCommitTime(String commitTime) {
         this.commitTime = commitTime;
     }
+
+    @Override
+    public String toString() {
+        return "Commit{" +
+                "id=" + id +
+                ", commitHash='" + commitHash + '\'' +
+                ", branch='" + branch + '\'' +
+                ", repository='" + repository + '\'' +
+                ", committer='" + committer + '\'' +
+                ", commitTime='" + commitTime + '\'' +
+                '}';
+    }
 }

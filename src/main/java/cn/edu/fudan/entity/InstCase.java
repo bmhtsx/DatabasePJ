@@ -91,4 +91,20 @@ public class InstCase {
     public void setDurationTime(int durationTime) {
         this.durationTime = durationTime;
     }
+
+    @Override
+    public String toString() {
+        return "InstCase{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", commitNew='" + commitNew + '\'' +
+                ", commitLast='" + commitLast + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", committerNew='" + committerNew + '\'' +
+                ", committerLast='" + committerLast + '\'' +
+                ", durationTime=" + durationTime +
+                '}';
+    }
 }
