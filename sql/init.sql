@@ -8,7 +8,7 @@ CREATE TABLE `instance` (
     `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
     `commit_id` int NOT NULL,
     `severity` varchar(8) NOT NULL,
-    `type` varchar(10) NOT NULL,
+    `type` varchar(40) NOT NULL,
     `status` varchar(10) NOT NULL,
     `author` varchar(40) NOT NULL,
     `message` varchar(200) NOT NULL,
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `instcase`;
 CREATE TABLE `instcase` (
     `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
     `status` varchar(7) NOT NULL,
-    `type` varchar(10) NOT NULL,
+    `type` varchar(40) NOT NULL,
     `inst_last` int NOT NULL,
     `commit_new` int NOT NULL,
     `commit_last` int NOT NULL,

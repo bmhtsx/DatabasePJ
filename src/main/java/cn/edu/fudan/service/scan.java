@@ -47,6 +47,6 @@ public class scan {
         issue_info.toMap(s,commit.getId());
 
         Matcher _matcher =new Matcher();
-        _matcher.matcher(commit,parent_commit.getId(),parent_commit.getCommitHash());
+        _matcher.matcher(commit,parent_commit.getId(),parent_commit.getCommitTime(),parent_commit.getCommitter());
     }
 }

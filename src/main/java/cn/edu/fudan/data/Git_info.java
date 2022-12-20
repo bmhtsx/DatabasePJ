@@ -96,7 +96,10 @@ public class Git_info {
                 latest_commit.setCommitter(revCommit.getAuthorIdent().getName());
                 latest_commit.setRepository(git_path);
                 if(revCommit.getParentCount()!=0){
+                    Timestamp parent_commit_time=CalTime.strToSqlDate(CalTime.checkDate(revCommit.getParent(0).getAuthorIdent().getWhen().toString()),"yyyy-MM-dd HH:mm:ss") ;
+                    parent_commit.setCommitTime(parent_commit_time);
                     parent_commit.setCommitHash(revCommit.getParent(0).getName());
+                    parent_commit.setCommitter(revCommit.getParent(0).getAuthorIdent().getName());
                 }
                 else {
                     parent_commit.setCommitHash(null);

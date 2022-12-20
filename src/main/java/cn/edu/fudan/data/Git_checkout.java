@@ -64,12 +64,7 @@ public class Git_checkout {
                     commitMessage.setCommitTime(commit_time);
                     commitMessage.setBranch(branchName);
                     commitMessage.setRepository(git_path + ".git");
-//                    if(commit.getParentCount()!=0){
-//                        parentCommitMessage.setCommitHash(commit.getParent(0).getName());
-//                    }
-//                    else {
-//                        parentCommitMessage.setCommitHash(null);
-//                    }
+
                     //parentCommitMessage.setRepository(git_path + ".git");
                     //commitMessage.setMergeBranchCommitId(commit.getParent(1).getName());
                     //parentCommitMessages.add(parentCommitMessage);
@@ -92,31 +87,22 @@ public class Git_checkout {
                 issue_info.toMap(s,git_id);
                 commitMessage.setId(git_id);
 
-//                Connection conn = null;
-//                PreparedStatement ps = null;
-//                conn = DBConnection.getConn();
-
-//                ps = conn.prepareStatement("select id FROM commit where commit_hash=? and repository=?;");
-//                ps.setString(1,parentCommitMessage.getCommitHash());
-//                ps.setString(2,parentCommitMessage.getRepository());
-//                ResultSet rs = ps.executeQuery();
-//                int parent_commit_id;
-//                if(rs.next()){
-//                    parent_commit_id = rs.getInt(1);
-//                }
-//                else{
-//                    parent_commit_id = -1;
-//                }
                 int parent_commit_id=-1;
-                String parent_commit_hash="";
+                Timestamp parent_commit_time=null;
+                String parent_committer="";
                 if(parentCommitMessage!=null){
                     parent_commit_id=parentCommitMessage.getId();
-                    parent_commit_hash=parentCommitMessage.getCommitHash();
+                    parent_commit_time=parentCommitMessage.getCommitTime();
+                    parent_committer=parentCommitMessage.getCommitter();
                     cmd="git checkout "+parentCommitMessage.getCommitHash();
                     CmdExecute.exeCmd(cmd,git_path);
                 }
                 Matcher _matcher =new Matcher();
-                _matcher.matcher(commitMessage,parent_commit_id,parent_commit_hash);
+                _matcher.matcher(commitMessage,parent_commit_id,parent_commit_time,parent_committer);
+            }
+            if(!commitMessages.isEmpty()){
+                String cmd="git checkout "+commitMessages.get(0).getCommitHash();
+                CmdExecute.exeCmd(cmd,git_path);
             }
         }
         catch (GitAPIException e){
