@@ -1,17 +1,13 @@
 package cn.edu.fudan.dao;
 
 import cn.edu.fudan.DBConnection;
+import cn.edu.fudan.data.CalTime;
 import cn.edu.fudan.entity.Commit;
 import cn.edu.fudan.entity.InstCase;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.sql.*;
+import java.util.*;
 
 public class InstcaseDAO {
 
@@ -178,14 +174,16 @@ public class InstcaseDAO {
             String sql2 = "select round(avg(duration_time)) from instcase where type=?";
 
             ps = conn.prepareStatement(sql2);
+            ps.setString(1, type);
             rs = ps.executeQuery();
             list.add(rs.getInt(1));
 
             String sql3 = "set @rowindex := 0;";
             ps = conn.prepareStatement(sql3);
             ps.executeQuery();
-            String sql4 = "select round(avg(duration_time)) from (select @rowindex:=@rowindex+1 as rowindex, duration_time from instcase order by duration_time) as S where S.rowindex in (floor((@rowindex+1)/2), ceil((@rowindex+1)/2));";
+            String sql4 = "select round(avg(duration_time)) from (select @rowindex:=@rowindex+1 as rowindex, duration_time from instcase where type=? order by duration_time) as S where S.rowindex in (floor((@rowindex+1)/2), ceil((@rowindex+1)/2));";
             ps = conn.prepareStatement(sql4);
+            ps.setString(1, type);
             rs = ps.executeQuery();
             list.add(rs.getInt(1));
 
@@ -221,7 +219,7 @@ public class InstcaseDAO {
             if (Objects.equals(status, "new"))
                 sql = "select * from instcase where commit_new=? and type=?";
             else if (Objects.equals(status, "fixed"))
-                sql = "select * from instcase where commit_last=? and type=? and status = 'FIXED'";
+                sql = "select * from instcase where commit_last=? and type=? and status = 'CLOSED'";
             ps = conn.prepareStatement(sql);
 
             ps.setInt(1, commitId);
@@ -237,7 +235,7 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getInstByStatusAndTime(String status, String startTime, String endTime) {
+    public List<InstCase> getInstByStatusAndTime(String status, Timestamp startTime, Timestamp endTime) {
         List<InstCase> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
@@ -248,8 +246,8 @@ public class InstcaseDAO {
                 sql = "select * from instcase where status='FIXED' and update_time>=? and update_time<=?";
             ps = conn.prepareStatement(sql);
 
-            ps.setString(1, startTime);
-            ps.setString(2, endTime);
+            ps.setTimestamp(1, startTime);
+            ps.setTimestamp(2, endTime);
             ResultSet rs = ps.executeQuery();
 
             addToInstcaseList(list, rs);
@@ -261,7 +259,7 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getInstByStatusAndAuthorAndTime(String status1, String status2, String author, String startTime, String endTime) {
+    public List<InstCase> getInstByStatusAndAuthorAndTime(String status1, String status2, String author, Timestamp startTime, Timestamp endTime) {
         List<InstCase> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
@@ -279,8 +277,8 @@ public class InstcaseDAO {
             ps = conn.prepareStatement(sql);
 
             ps.setString(1, author);
-            ps.setString(2, startTime);
-            ps.setString(3, endTime);
+            ps.setTimestamp(2, startTime);
+            ps.setTimestamp(3, endTime);
             ResultSet rs = ps.executeQuery();
 
             addToInstcaseList(list, rs);
@@ -292,22 +290,115 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getSolvedInstByTime(String author) {
-        List<InstCase> list = new ArrayList<>();
+    public void getStatisticsByTime(Timestamp startTime, Timestamp endTime) {
         try {
             conn = DBConnection.getConn();
-            String sql = "select * from instcase where status = 'SOLVED' and committer_last = ?";
-            ps = conn.prepareStatement(sql);
 
-            ps.setString(1, author);
+            String sql1 = "select type, count(*) from instcase where create_time>=? and create_time<=? group by type";
+            ps = conn.prepareStatement(sql1);
+            ps.setTimestamp(1, startTime);
+            ps.setTimestamp(2, endTime);
             ResultSet rs = ps.executeQuery();
+            System.out.println("new issue number:");
+            Map<String, Integer> newmap = new HashMap<>();
+            while (rs.next()) {
+                newmap.put(rs.getString(1), rs.getInt(2));
+                System.out.print(rs.getString(1)+" "+rs.getInt(2)+" ");
+            } System.out.println();
 
-            addToInstcaseList(list, rs);
+            String sql2 = "select type, count(*) from instcase where status=? and create_time>=? and create_time<=? group by type";
+            ps = conn.prepareStatement(sql2);
+            ps.setString(1, "changed");
+            ps.setTimestamp(2, startTime);
+            ps.setTimestamp(3, endTime);
+            rs = ps.executeQuery();
+            System.out.println("resolve rate: ");
+            while (rs.next()) {
+                System.out.print(rs.getString(1)+" "+String.format("%.3f", (double)rs.getInt(2) / newmap.get(rs.getString(1)))+" ");
+            } System.out.println();
+
+            String sql3 = "select type, avg(duration_time) from instcase where create_time>=? and create_time<=? group by type";
+            ps = conn.prepareStatement(sql3);
+            ps.setTimestamp(1, startTime);
+            ps.setTimestamp(2, endTime);
+            rs = ps.executeQuery();
+            System.out.println("duration time: ");
+            while (rs.next()) {
+                System.out.print(rs.getString(1)+" "+ CalTime.calTime(rs.getInt(2))+" ");
+            } System.out.println();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DBConnection.close(conn, ps);
-        } return list;
+        }
+    }
+
+    public void getStatisticsByTimeLongerThan(int time) {
+        try {
+            conn = DBConnection.getConn();
+            String sql = "select type, count(*) from instcase where duration_time>=? group by type";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, time);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.print(rs.getString(1)+" "+rs.getInt(2)+" ");
+            } System.out.println();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(conn, ps);
+        }
+    }
+
+    public void getStatisticsByAuthor(String author) {
+        try {
+            conn = DBConnection.getConn();
+
+            String sql1 = "select type, count(*), avg(duration_time) from instcase where status='changed' and committer_new=? and committer_last=? group by type";
+            ps = conn.prepareStatement(sql1);
+            ps.setString(1, author);
+            ps.setString(2, author);
+            ResultSet rs = ps.executeQuery();
+            System.out.println("self create self resolve:");
+            while (rs.next()) {
+                System.out.println(rs.getString(1)+" "+rs.getInt(2)+" "+CalTime.calTime(rs.getInt(3)));
+            }
+
+            String sql2 = "select type, count(*), avg(duration_time) from instcase where status='changed' and committer_new!=? and committer_last=? group by type";
+            ps = conn.prepareStatement(sql2);
+            ps.setString(1, author);
+            ps.setString(2, author);
+            rs = ps.executeQuery();
+            System.out.println("others create self resolve:");
+            while (rs.next()) {
+                System.out.println(rs.getString(1)+" "+rs.getInt(2)+" "+CalTime.calTime(rs.getInt(3)));
+            }
+
+            String sql3 = "select type, count(*), avg(duration_time) from instcase where status='add' and committer_new=? group by type";
+            ps = conn.prepareStatement(sql3);
+            ps.setString(1, author);
+            rs = ps.executeQuery();
+            System.out.println("self create not resolved:");
+            while (rs.next()) {
+                System.out.println(rs.getString(1)+" "+rs.getInt(2)+" "+CalTime.calTime(rs.getInt(3)));
+            }
+
+            String sql4 = "select type, count(*), avg(duration_time) from instcase where status='changed' and committer_new=? and committer_last!=? group by type";
+            ps = conn.prepareStatement(sql4);
+            ps.setString(1, author);
+            ps.setString(2, author);
+            rs = ps.executeQuery();
+            System.out.println("self create others resolve:");
+            while (rs.next()) {
+                System.out.println(rs.getString(1)+" "+rs.getInt(2)+" "+CalTime.calTime(rs.getInt(3)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(conn, ps);
+        }
     }
 }

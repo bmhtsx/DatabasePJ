@@ -18,7 +18,7 @@ public class CalTime {
             return "";
         }
         SimpleDateFormat sdf2 = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-        Date data = null;
+        Date data;
         try {
             data = sdf2.parse(dateStr);
             String formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data);
@@ -57,6 +57,48 @@ public class CalTime {
         LocalDateTime en = LocalDateTime.parse(end.substring(0, 19));
         Duration duration = Duration.between(be, en);
         return (int) duration.getSeconds();
+    }
+
+    static int year = 31536000;
+    static int day = 86400;
+    static int hour = 3600;
+    static int minute = 60;
+
+    public static String calTime(int second) {
+        String ret = "";
+
+        if (second >= year) {
+            ret = second / year + "y";
+            second %= year;
+        }
+        if (second >= day) {
+            ret += second / day + "d";
+            second %= day;
+        }
+        if (second >= hour) {
+            ret += second / hour + "h";
+            second %= hour;
+        }
+        if (second >= minute) {
+            ret += second / minute + "m";
+            second %= minute;
+        }
+        if (second > 0) {
+            ret += second + "s";
+        }
+        return ret;
+    }
+
+    public static int strToTime(String str) {
+        int t = Integer.parseInt(str.substring(0, str.length()-1));
+        switch (str.substring(str.length()-1)) {
+            case "y" : return t * year;
+            case "d" : return t * day;
+            case "h" : return t * hour;
+            case "m" : return t * minute;
+            case "s" : return t;
+        }
+        return 0;
     }
 
 }
