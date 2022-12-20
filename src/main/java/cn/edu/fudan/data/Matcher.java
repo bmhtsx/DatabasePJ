@@ -124,7 +124,7 @@ public class Matcher {
                 System.out.println("NnParent");
                 for (RawIssue rawIssue : curRawIssueList) {
                     InstCase instcase=new InstCase();
-                    instcase.setCommitLast(commit.getCommitter());
+                    instcase.setCommitLast(commit.getCommitHash());
                     instcase.setCommitNew(commit.getCommitHash());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
@@ -153,7 +153,7 @@ public class Matcher {
             for (RawIssue rawIssue : curRawIssueList) {
                 if(rawIssue.getMappedRawIssue()==null){
                     InstCase instcase=new InstCase();
-                    instcase.setCommitLast(commit.getCommitter());
+                    instcase.setCommitLast(commit.getCommitHash());
                     instcase.setCommitNew(commit.getCommitHash());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
@@ -165,16 +165,17 @@ public class Matcher {
                     instcaseDAO.insert(instcase);
                 }
                 else{
-                    String loc_sql="select id,create_time FROM instcase where commit_new=? ORDER BY id";
+                    String loc_sql="select id,create_time,commit_new FROM instcase where commit_last=? and type=?";
                     ps = conn.prepareStatement(loc_sql);
                     ps.setString(1,parent_commit_hash);
+                    ps.setString(2,rawIssue.getType());
                     ResultSet loc_rs = ps.executeQuery();
                     loc_rs.next();
                     int id=loc_rs.getInt("id");
                     String create_time=loc_rs.getString("create_time");
-
+                    String commit_new=loc_rs.getString("commit_new");
                     InstCase instcase=new InstCase();
-                    instcase.setCommitNew(commit.getCommitHash());
+                    instcase.setCommitNew(commit_new);
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
                     instcase.setUpdateTime(commit.getCommitTime());
@@ -182,13 +183,8 @@ public class Matcher {
                     instcase.setCommitterLast(commit.getCommitter());
                     instcase.setId(id);
                     instcase.setCreateTime(create_time);
-                    instcase.setDurationTime(114514);//CalTime.calDurationTime(create_time,commit.getCommitTime()));
-                    if(rawIssue.getStatus()!="OPEN"){
-                        instcase.setCommitLast(commit.getCommitHash());
-                    }
-                    else {
-                        instcase.setCommitLast(" ");
-                    }
+                    instcase.setDurationTime(CalTime.calDurationTime(CalTime.checkDate(create_time),CalTime.checkDate(commit.getCommitTime())));
+                    instcase.setCommitLast(commit.getCommitHash());
 
                     Match match=new Match();
                     match.setParentId(Integer.parseInt(rawIssue.getMappedRawIssue().getUuid()));
