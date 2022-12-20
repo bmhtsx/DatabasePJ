@@ -181,7 +181,7 @@ public class Matcher {
                     instcase.setCommitterLast(commit.getCommitter());
                     instcase.setId(id);
                     instcase.setCreateTime(create_time);
-                    instcase.setDurationTime(114514);//commit.getCommitTime().getTime()-create_time.getTime());
+                    instcase.setDurationTime((int)((commit.getCommitTime().getTime()-create_time.getTime())/1000));
                     instcase.setCommitLast(commit.getId());
                     instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
 
