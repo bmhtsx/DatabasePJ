@@ -23,7 +23,7 @@ public class Git_checkout {
 
     public List<Commit> getCommitMessagesInBranch(String branchName){
         List<Commit> commitMessages = new ArrayList<>();
-        List<Commit> parentCommitMessages = new ArrayList<>();
+        //List<Commit> parentCommitMessages = new ArrayList<>();
         try {
             Properties properties = new Properties();
             properties.load(new FileReader("src/pj_info.properties"));
@@ -33,12 +33,12 @@ public class Git_checkout {
             repository = git.getRepository();
 
             Commit commitMessage = null;
-            Commit parentCommitMessage = null;
+            //Commit parentCommitMessage = null;
             Iterable<RevCommit> commits = git.log().all().call();
             RevWalk walk = new RevWalk(repository);
             for (RevCommit commit : commits) {
                 commitMessage = new Commit();
-                parentCommitMessage = new Commit();
+                //parentCommitMessage = new Commit();
                 boolean foundInThisBranch = false;
                 RevCommit targetCommit = walk.parseCommit(commit.getId());
                 for (Map.Entry<String, Ref> e : repository.getAllRefs().entrySet()) {
@@ -64,15 +64,15 @@ public class Git_checkout {
                     commitMessage.setCommitTime(commit_time);
                     commitMessage.setBranch(branchName);
                     commitMessage.setRepository(git_path + ".git");
-                    if(commit.getParentCount()!=0){
-                        parentCommitMessage.setCommitHash(commit.getParent(0).getName());
-                    }
-                    else {
-                        parentCommitMessage.setCommitHash(null);
-                    }
-                    parentCommitMessage.setRepository(git_path + ".git");
+//                    if(commit.getParentCount()!=0){
+//                        parentCommitMessage.setCommitHash(commit.getParent(0).getName());
+//                    }
+//                    else {
+//                        parentCommitMessage.setCommitHash(null);
+//                    }
+                    //parentCommitMessage.setRepository(git_path + ".git");
                     //commitMessage.setMergeBranchCommitId(commit.getParent(1).getName());
-                    parentCommitMessages.add(parentCommitMessage);
+                    //parentCommitMessages.add(parentCommitMessage);
                     commitMessages.add(commitMessage);
 
 
@@ -80,39 +80,44 @@ public class Git_checkout {
             }
             for (int i = commitMessages.size()-1; i >=0; i--) {
                 commitMessage=commitMessages.get(i);
-                parentCommitMessage=parentCommitMessages.get(i);
+                Commit parentCommitMessage=null;
+                if(i+1<commitMessages.size())parentCommitMessage=commitMessages.get(i+1);
                 String cmd="git checkout "+commitMessage.getCommitHash();
                 CmdExecute.exeCmd(cmd,git_path);
                 CmdExecute.exeCmd(sonar_cmd,git_path);
-
                 CommitDAO c=new CommitDAO();
-                int git_id=c.insert(commitMessage);
+                int git_id=c.insert(commitMessage)-1;
                 String s=null;
                 s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys=cim&additionalFields=_all&s=FILE_LINE&resolved=false");
                 issue_info.toMap(s,git_id);
                 commitMessage.setId(git_id);
-                Connection conn = null;
-                PreparedStatement ps = null;
-                conn = DBConnection.getConn();
 
-                ps = conn.prepareStatement("select id FROM commit where commit_hash=? and repository=?;");
-                ps.setString(1,parentCommitMessage.getCommitHash());
-                ps.setString(2,parentCommitMessage.getRepository());
-                ResultSet rs = ps.executeQuery();
-                int parent_commit_id;
-                if(rs.next()){
-                    parent_commit_id = rs.getInt(1);
+//                Connection conn = null;
+//                PreparedStatement ps = null;
+//                conn = DBConnection.getConn();
+
+//                ps = conn.prepareStatement("select id FROM commit where commit_hash=? and repository=?;");
+//                ps.setString(1,parentCommitMessage.getCommitHash());
+//                ps.setString(2,parentCommitMessage.getRepository());
+//                ResultSet rs = ps.executeQuery();
+//                int parent_commit_id;
+//                if(rs.next()){
+//                    parent_commit_id = rs.getInt(1);
+//                }
+//                else{
+//                    parent_commit_id = -1;
+//                }
+                int parent_commit_id=-1;
+                String parent_commit_hash="";
+                if(parentCommitMessage!=null){
+                    parent_commit_id=parentCommitMessage.getId();
+                    parent_commit_hash=parentCommitMessage.getCommitHash();
+                    cmd="git checkout "+parentCommitMessage.getCommitHash();
+                    CmdExecute.exeCmd(cmd,git_path);
                 }
-                else{
-                    parent_commit_id = -1;
-                }
-
-
                 Matcher _matcher =new Matcher();
-                _matcher.matcher(commitMessage,parent_commit_id,parentCommitMessage.getCommitHash());
+                _matcher.matcher(commitMessage,parent_commit_id,parent_commit_hash);
             }
-        }catch (SQLException e) {
-            e.printStackTrace();
         }
         catch (GitAPIException e){
             e.printStackTrace();
