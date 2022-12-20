@@ -164,26 +164,43 @@ public class Matcher {
                     instcaseDAO.insert(instcase);
                 }
                 else{
-                    String loc_sql="select id,create_time,commit_new FROM instcase where inst_last=?";
+                    String loc_sql="select id,create_time,commit_new,committer_new FROM instcase where inst_last=?";
                     ps = conn.prepareStatement(loc_sql);
                     ps.setInt(1,Integer.parseInt(rawIssue.getMappedRawIssue().getUuid()));
                     ResultSet loc_rs = ps.executeQuery();
-                    loc_rs.next();
-                    int id=loc_rs.getInt("id");
-                    Timestamp create_time=loc_rs.getTimestamp("create_time");
-                    int commit_new=loc_rs.getInt("commit_new");
                     InstCase instcase=new InstCase();
-                    instcase.setCommitNew(commit_new);
-                    instcase.setStatus(rawIssue.getStatus());
-                    instcase.setType(rawIssue.getType());
-                    instcase.setUpdateTime(commit.getCommitTime());
-                    instcase.setCommitterNew(commit.getCommitter());
-                    instcase.setCommitterLast(commit.getCommitter());
-                    instcase.setId(id);
-                    instcase.setCreateTime(create_time);
-                    instcase.setDurationTime((int)((commit.getCommitTime().getTime()-create_time.getTime())/1000));
-                    instcase.setCommitLast(commit.getId());
-                    instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
+                    if(loc_rs.next()){
+                        int id=loc_rs.getInt("id");
+                        Timestamp create_time=loc_rs.getTimestamp("create_time");
+                        int commit_new=loc_rs.getInt("commit_new");
+                        String committer_new=loc_rs.getString("committer_new");
+                        instcase.setCommitNew(commit_new);
+                        instcase.setStatus(rawIssue.getStatus());
+                        instcase.setType(rawIssue.getType());
+                        instcase.setUpdateTime(commit.getCommitTime());
+                        instcase.setCommitterNew(committer_new);
+                        instcase.setCommitterLast(commit.getCommitter());
+                        instcase.setId(id);
+                        instcase.setCreateTime(create_time);
+                        instcase.setDurationTime((int)((commit.getCommitTime().getTime()-create_time.getTime())/1000));
+                        instcase.setCommitLast(commit.getId());
+                        instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
+                    }
+                    else {
+                        System.out.println("Instcase not found, while parent instance exists.");
+                        instcase.setCommitLast(commit.getId());
+                        instcase.setCommitNew(commit.getId());
+                        instcase.setStatus(rawIssue.getStatus());
+                        instcase.setType(rawIssue.getType());
+                        instcase.setCreateTime(commit.getCommitTime());
+                        instcase.setUpdateTime(commit.getCommitTime());
+                        instcase.setCommitterNew(commit.getCommitter());
+                        instcase.setCommitterLast(commit.getCommitter());
+                        instcase.setDurationTime(0);
+                        instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
+                        instcaseDAO.insert(instcase);
+                    }
+
 
                     Match match=new Match();
                     match.setParentId(Integer.parseInt(rawIssue.getMappedRawIssue().getUuid()));
@@ -194,7 +211,34 @@ public class Matcher {
                     instcaseDAO.update(instcase);
                 }
             }
+            for (RawIssue rawIssue : preRawIssueList) {
+                if(rawIssue.getMappedRawIssue()==null){
+                    String loc_sql="select id,create_time,commit_new,committer_new,committer_last FROM instcase where inst_last=?";
+                    ps = conn.prepareStatement(loc_sql);
+                    ps.setInt(1,Integer.parseInt(rawIssue.getMappedRawIssue().getUuid()));
+                    ResultSet loc_rs = ps.executeQuery();
+                    loc_rs.next();
+                    int id=loc_rs.getInt("id");
+                    Timestamp create_time=loc_rs.getTimestamp("create_time");
+                    int commit_new=loc_rs.getInt("commit_new");
+                    String committer_new=loc_rs.getString("committer_new");
+                    String committer_last=loc_rs.getString("committer_last");
+                    InstCase instcase=new InstCase();
+                    instcase.setCommitNew(commit_new);
+                    instcase.setStatus("CLOSED");
+                    instcase.setType(rawIssue.getType());
+                    instcase.setUpdateTime(commit.getCommitTime());
+                    instcase.setCommitterNew(committer_new);
+                    instcase.setCommitterLast(committer_last);
+                    instcase.setId(id);
+                    instcase.setCreateTime(create_time);
+                    instcase.setDurationTime((int)((commit.getCommitTime().getTime()-create_time.getTime())/1000));
+                    instcase.setCommitLast(parent_commit_id);
+                    instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
 
+                    instcaseDAO.update(instcase);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
