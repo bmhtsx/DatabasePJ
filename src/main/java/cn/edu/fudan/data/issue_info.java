@@ -45,8 +45,8 @@ public class issue_info {
                             case "status":instance.setStatus(entry.getValue().toString());break;
                             case "author":instance.setAuthor(entry.getValue().toString());break;
                             case "message":instance.setMessage(entry.getValue().toString());break;
-                            case "creationDate":instance.setCreationDate(entry.getValue().toString());break;
-                            case "updateDate":instance.setUpdateDate(entry.getValue().toString());break;
+//                            case "creationDate":instance.setCreationDate(entry.getValue().toString());break;
+//                            case "updateDate":instance.setUpdateDate(entry.getValue().toString());break;
                             case "component":first_location.setComponent(entry.getValue().toString());break;
                             case "textRange": Location temp=LocationstoMap(entry.getValue().toString(),first_location);
                             first_location.setStartOffset(temp.getStartOffset());

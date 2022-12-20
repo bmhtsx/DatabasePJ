@@ -17,7 +17,7 @@ public class InstanceDAO {
         try {
             conn = DBConnection.getConn();
 
-            String sql = "insert into instance (commit_id, severity, type, status, author, message, creation_date, update_date) values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into instance (commit_id, severity, type, status, author, message) values(?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
 
             ps.setInt(1, instance.getCommitId());
@@ -26,8 +26,8 @@ public class InstanceDAO {
             ps.setString(4, instance.getStatus());
             ps.setString(5, instance.getAuthor());
             ps.setString(6, instance.getMessage());
-            ps.setTimestamp(7, instance.getCreationDate());
-            ps.setTimestamp(8, instance.getUpdateDate());
+//            ps.setTimestamp(7, instance.getCreationDate());
+//            ps.setTimestamp(8, instance.getUpdateDate());
 
             ps.executeUpdate();
 

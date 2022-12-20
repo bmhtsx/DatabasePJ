@@ -14,10 +14,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class Git_checkout {
@@ -63,7 +60,8 @@ public class Git_checkout {
                 if (foundInThisBranch) {
                     commitMessage.setCommitHash(commit.getName());
                     commitMessage.setCommitter(commit.getAuthorIdent().getName());
-                    commitMessage.setCommitTime(commit.getAuthorIdent().getWhen().toString());
+                    Timestamp commit_time=CalTime.strToSqlDate(CalTime.checkDate(commit.getAuthorIdent().getWhen().toString()),"yyyy-MM-dd HH:mm:ss") ;
+                    commitMessage.setCommitTime(commit_time);
                     commitMessage.setBranch(branchName);
                     commitMessage.setRepository(git_path + ".git");
                     if(commit.getParentCount()!=0){

@@ -10,8 +10,8 @@ public class Instance {
     private String status;
     private String author;
     private String message;
-    private Timestamp creationDate;
-    private Timestamp updateDate;
+//    private Timestamp creationDate;
+//    private Timestamp updateDate;
 
     public int getId() {
         return id;
@@ -69,19 +69,19 @@ public class Instance {
         this.message = message;
     }
 
-    public Timestamp getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Timestamp getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
-    }
+//    public Timestamp getCreationDate() {
+//        return creationDate;
+//    }
+//
+//    public void setCreationDate(Timestamp creationDate) {
+//        this.creationDate = creationDate;
+//    }
+//
+//    public Timestamp getUpdateDate() {
+//        return updateDate;
+//    }
+//
+//    public void setUpdateDate(Timestamp updateDate) {
+//        this.updateDate = updateDate;
+//    }
 }

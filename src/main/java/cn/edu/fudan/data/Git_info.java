@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.DriverManager;
+import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,7 +90,8 @@ public class Git_info {
                 version+=" "+revCommit.getAuthorIdent().getWhen();//时间
                 System.out.println(version);
                 latest_commit.setCommitHash(revCommit.getName());
-                latest_commit.setCommitTime(revCommit.getAuthorIdent().getWhen().toString());
+                Timestamp commit_time=CalTime.strToSqlDate(CalTime.checkDate(revCommit.getAuthorIdent().getWhen().toString()),"yyyy-MM-dd HH:mm:ss") ;
+                latest_commit.setCommitTime(commit_time);
                 latest_commit.setBranch("master");
                 latest_commit.setCommitter(revCommit.getAuthorIdent().getName());
                 latest_commit.setRepository(git_path);
