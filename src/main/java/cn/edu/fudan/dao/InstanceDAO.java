@@ -26,8 +26,8 @@ public class InstanceDAO {
             ps.setString(4, instance.getStatus());
             ps.setString(5, instance.getAuthor());
             ps.setString(6, instance.getMessage());
-            ps.setString(7, instance.getCreationDate());
-            ps.setString(8, instance.getUpdateDate());
+            ps.setTimestamp(7, instance.getCreationDate());
+            ps.setTimestamp(8, instance.getUpdateDate());
 
             ps.executeUpdate();
 

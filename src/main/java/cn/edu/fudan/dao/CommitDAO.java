@@ -25,7 +25,7 @@ public class CommitDAO {
             ps.setString(2, commit.getBranch());
             ps.setString(3, commit.getRepository());
             ps.setString(4, commit.getCommitter());
-            ps.setString(5, commit.getCommitTime());
+            ps.setTimestamp(5, commit.getCommitTime());
 
             ps.executeUpdate();
 

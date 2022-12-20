@@ -23,18 +23,19 @@ public class InstcaseDAO {
         try {
             conn = DBConnection.getConn();
 
-            String sql = "insert into instcase (status, type, commit_new, commit_last, create_time, update_time, committer_new, committer_last, duration_time) values(?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into instcase (status, type, inst_last, commit_new, commit_last, create_time, update_time, committer_new, committer_last, duration_time) values(?,?,?,?,?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
 
             ps.setString(1, instCase.getStatus());
             ps.setString(2, instCase.getType());
-            ps.setString(3, instCase.getCommitNew());
-            ps.setString(4, instCase.getCommitLast());
-            ps.setString(5, instCase.getCreateTime());
-            ps.setString(6, instCase.getUpdateTime());
-            ps.setString(7, instCase.getCommitterNew());
-            ps.setString(8, instCase.getCommitterLast());
-            ps.setInt(9, instCase.getDurationTime());
+            ps.setInt(3, instCase.getInstLast());
+            ps.setInt(4, instCase.getCommitNew());
+            ps.setInt(5, instCase.getCommitLast());
+            ps.setTimestamp(6, instCase.getCreateTime());
+            ps.setTimestamp(7, instCase.getUpdateTime());
+            ps.setString(8, instCase.getCommitterNew());
+            ps.setString(9, instCase.getCommitterLast());
+            ps.setInt(10, instCase.getDurationTime());
 
             ps.executeUpdate();
 
@@ -55,19 +56,20 @@ public class InstcaseDAO {
         try {
             conn = DBConnection.getConn();
 
-            String sql = "update instcase set status=?, type=?, commit_new=?, commit_last=?, create_time=?, update_time=?, committer_new=?, committer_last=?, duration_time=? where id=?";
+            String sql = "update instcase set status=?, type=?, inst_last=?, commit_new=?, commit_last=?, create_time=?, update_time=?, committer_new=?, committer_last=?, duration_time=? where id=?";
             ps = conn.prepareStatement(sql);
 
             ps.setString(1, instCase.getStatus());
             ps.setString(2, instCase.getType());
-            ps.setString(3, instCase.getCommitNew());
-            ps.setString(4, instCase.getCommitLast());
-            ps.setString(5, instCase.getCreateTime());
-            ps.setString(6, instCase.getUpdateTime());
-            ps.setString(7, instCase.getCommitterNew());
-            ps.setString(8, instCase.getCommitterLast());
-            ps.setInt(9, instCase.getDurationTime());
-            ps.setInt(10, instCase.getId());
+            ps.setInt(3, instCase.getInstLast());
+            ps.setInt(4, instCase.getCommitNew());
+            ps.setInt(5, instCase.getCommitLast());
+            ps.setTimestamp(6, instCase.getCreateTime());
+            ps.setTimestamp(7, instCase.getUpdateTime());
+            ps.setString(8, instCase.getCommitterNew());
+            ps.setString(9, instCase.getCommitterLast());
+            ps.setInt(10, instCase.getDurationTime());
+            ps.setInt(11, instCase.getId());
 
             ps.executeUpdate();
 
@@ -84,10 +86,11 @@ public class InstcaseDAO {
             instcase.setId(rs.getInt("id"));
             instcase.setStatus(rs.getString("status"));
             instcase.setType(rs.getString("type"));
-            instcase.setCommitNew(rs.getString("commit_new"));
-            instcase.setCommitLast(rs.getString("commit_last"));
-            instcase.setCreateTime(rs.getString("create_time"));
-            instcase.setUpdateTime(rs.getString("update_time"));
+            instcase.setInstLast(rs.getInt("inst_last"));
+            instcase.setCommitNew(rs.getInt("commit_new"));
+            instcase.setCommitLast(rs.getInt("commit_last"));
+            instcase.setCreateTime(rs.getTimestamp("create_time"));
+            instcase.setUpdateTime(rs.getTimestamp("update_time"));
             instcase.setCommitterNew(rs.getString("committer_new"));
             instcase.setCommitterLast(rs.getString("committer_last"));
             instcase.setDurationTime(rs.getInt("duration_time"));
@@ -104,24 +107,9 @@ public class InstcaseDAO {
             commit.setBranch(rs.getString("branch"));
             commit.setRepository(rs.getString("repository"));
             commit.setCommitter(rs.getString("committer"));
-            commit.setCommitTime(rs.getString("commit_time"));
+            commit.setCommitTime(rs.getTimestamp("commit_time"));
 
             list.add(commit);
-        }
-    }
-
-    public void getType() {
-        try {
-            conn = DBConnection.getConn();
-            String sql = "select distinct type from instcase";
-            ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                System.out.print(rs.getString("type") + " ");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -155,18 +143,18 @@ public class InstcaseDAO {
         List<InstCase> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
-            String sql = "select * from commit order by id desc limit 1";
+            String sql = "select max(id) from commit";
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            String commitLast = rs.getString("commit_hash");
+            int commitLast = rs.getInt(1);
 
             String sql2 = greater ?
-                    "select * from instcase where commit_new=? order by duration_time" :
-                    "select * from instcase where commit_new=? order by duration_time desc";
+                    "select * from instcase where commit_last=? order by duration_time" :
+                    "select * from instcase where commit_last=? order by duration_time desc";
             ps = conn.prepareStatement(sql2);
 
-            ps.setString(1, commitLast);
+            ps.setInt(1, commitLast);
             rs = ps.executeQuery();
 
             addToInstcaseList(list, rs);
@@ -182,18 +170,22 @@ public class InstcaseDAO {
         List<Integer> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
-            String sql = "select * from commit order by id desc limit 1";
+            String sql = "select max(id) from commit";
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            String commitLast = rs.getString("commit_hash");
+            int commitLast = rs.getInt(1);
 
-            String sql2 = "select avg(duration_time) from instcase";
+            String sql2 = "select round(avg(duration_time)) from instcase where type=?";
+
             ps = conn.prepareStatement(sql2);
             rs = ps.executeQuery();
             list.add(rs.getInt(1));
 
-            String sql3 = "select avg(duration_time) from (select duration_time,@a:=@a+1 b from instcase,(select @a:=0) t2 order by duration_time) t where b between @a/2 and @a/2+1";
+            String sql3 = "set @rowindex := 0;";
             ps = conn.prepareStatement(sql3);
+            ps.executeQuery();
+            String sql4 = "select round(avg(duration_time)) from (select @rowindex:=@rowindex+1 as rowindex, duration_time from instcase order by duration_time) as S where S.rowindex in (floor((@rowindex+1)/2), ceil((@rowindex+1)/2));";
+            ps = conn.prepareStatement(sql4);
             rs = ps.executeQuery();
             list.add(rs.getInt(1));
 
@@ -221,7 +213,7 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getInstByStatusAndCommitAndType(String status, String commitHash, String type) {
+    public List<InstCase> getInstByStatusAndCommitAndType(String status, int commitId, String type) {
         List<InstCase> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
@@ -232,7 +224,7 @@ public class InstcaseDAO {
                 sql = "select * from instcase where commit_last=? and type=? and status = 'FIXED'";
             ps = conn.prepareStatement(sql);
 
-            ps.setString(1, commitHash);
+            ps.setInt(1, commitId);
             ps.setString(2, type);
             ResultSet rs = ps.executeQuery();
 

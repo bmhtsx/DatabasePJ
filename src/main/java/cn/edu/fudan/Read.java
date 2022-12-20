@@ -46,10 +46,10 @@ public class Read {
                     status = br.readLine();
                     print10(instcaseDAO.getCommitByTimeDesc());
                     System.out.print("commit_hash: ");
-                    String commitHash = br.readLine();
+                    int commitId = Integer.parseInt(br.readLine());
                     System.out.print("type(`CODE_SMELL`, `BUG`): ");
                     String type = br.readLine();
-                    print10(instcaseDAO.getInstByStatusAndCommitAndType(status, commitHash, type));
+                    print10(instcaseDAO.getInstByStatusAndCommitAndType(status, commitId, type));
                 case "time":
                     System.out.println("you can use `new`, `fixed`");
                     status = br.readLine();

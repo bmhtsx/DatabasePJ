@@ -12,8 +12,8 @@ CREATE TABLE `instance` (
     `status` varchar(10) NOT NULL,
     `author` varchar(40) NOT NULL,
     `message` varchar(200) NOT NULL,
-    `creation_date` varchar(24) NOT NULL,
-    `update_date` varchar(24) NOT NULL,
+    `creation_date` timestamp NOT NULL,
+    `update_date` timestamp NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -24,7 +24,7 @@ CREATE TABLE `commit` (
     `branch` varchar(30) NOT NULL,
     `repository` varchar(100) NOT NULL,
     `committer` varchar(50) NOT NULL,
-    `commit_time` varchar(40) NOT NULL,
+    `commit_time` timestamp NOT NULL,
     primary key (`id`)
 );
 
@@ -51,10 +51,11 @@ CREATE TABLE `instcase` (
     `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
     `status` varchar(7) NOT NULL,
     `type` varchar(10) NOT NULL,
-    `commit_new` varchar(50) NOT NULL,
-    `commit_last` varchar(50) NOT NULL,
-    `create_time` varchar(40) NOT NULL,
-    `update_time` varchar(40) NOT NULL,
+    `inst_last` int NOT NULL,
+    `commit_new` int NOT NULL,
+    `commit_last` int NOT NULL,
+    `create_time` timestamp NOT NULL,
+    `update_time` timestamp NOT NULL,
     `committer_new` varchar(50) NOT NULL,
     `committer_last` varchar(50) NOT NULL,
     `duration_time` int NOT NULL,

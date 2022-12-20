@@ -1,12 +1,14 @@
 package cn.edu.fudan.entity;
 
+import java.sql.Timestamp;
+
 public class Commit {
     private int id;
     private String commitHash;
     private String branch;
     private String repository;
     private String committer;
-    private String commitTime;
+    private Timestamp commitTime;
 
     public int getId() {
         return id;
@@ -48,11 +50,11 @@ public class Commit {
         this.committer = committer;
     }
 
-    public String getCommitTime() {
+    public Timestamp getCommitTime() {
         return commitTime;
     }
 
-    public void setCommitTime(String commitTime) {
+    public void setCommitTime(Timestamp commitTime) {
         this.commitTime = commitTime;
     }
 
@@ -64,7 +66,7 @@ public class Commit {
                 ", branch='" + branch + '\'' +
                 ", repository='" + repository + '\'' +
                 ", committer='" + committer + '\'' +
-                ", commitTime='" + commitTime + '\'' +
+                ", commitTime=" + commitTime +
                 '}';
     }
 }

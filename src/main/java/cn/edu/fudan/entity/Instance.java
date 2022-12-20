@@ -1,5 +1,7 @@
 package cn.edu.fudan.entity;
 
+import java.sql.Timestamp;
+
 public class Instance {
     private int id;
     private int commitId;
@@ -8,8 +10,8 @@ public class Instance {
     private String status;
     private String author;
     private String message;
-    private String creationDate;
-    private String updateDate;
+    private Timestamp creationDate;
+    private Timestamp updateDate;
 
     public int getId() {
         return id;
@@ -67,19 +69,19 @@ public class Instance {
         this.message = message;
     }
 
-    public String getCreationDate() {
+    public Timestamp getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getUpdateDate() {
+    public Timestamp getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(String updateDate) {
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
 }
