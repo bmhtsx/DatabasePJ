@@ -1,7 +1,6 @@
 package cn.edu.fudan.data;
 
 import cn.edu.fudan.CmdExecute;
-import cn.edu.fudan.DBConnection;
 import cn.edu.fudan.dao.CommitDAO;
 import cn.edu.fudan.entity.Commit;
 import org.eclipse.jgit.api.Git;
@@ -21,7 +20,7 @@ public class Git_checkout {
     private Git git;
     private Repository repository;
 
-    public List<Commit> getCommitMessagesInBranch(String branchName){
+    public void getCommitMessagesInBranch(String branchName){
         List<Commit> commitMessages = new ArrayList<>();
         //List<Commit> parentCommitMessages = new ArrayList<>();
         try {
@@ -29,6 +28,7 @@ public class Git_checkout {
             properties.load(new FileReader("src/pj_info.properties"));
             String git_path = properties.getProperty("git_path");
             String sonar_cmd = properties.getProperty("sonar_cmd");
+            String project_name=properties.getProperty("project_name");
             git = Git.open(new File(git_path));
             repository = git.getRepository();
 
@@ -79,11 +79,11 @@ public class Git_checkout {
                 if(i+1<commitMessages.size())parentCommitMessage=commitMessages.get(i+1);
                 String cmd="git checkout "+commitMessage.getCommitHash();
                 CmdExecute.exeCmd(cmd,git_path);
-                CmdExecute.exeCmd(sonar_cmd,git_path);
+                CmdExecute.exeCmd(sonar_cmd+project_name,git_path);
                 CommitDAO c=new CommitDAO();
                 int git_id=c.insert(commitMessage)-1;
                 String s=null;
-                s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys=cim&additionalFields=_all&s=FILE_LINE&resolved=false");
+                s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys="+project_name+"&additionalFields=_all&s=FILE_LINE&resolved=false");
                 issue_info.toMap(s,git_id);
                 commitMessage.setId(git_id);
 
@@ -98,7 +98,7 @@ public class Git_checkout {
                     CmdExecute.exeCmd(cmd,git_path);
                 }
                 Matcher _matcher =new Matcher();
-                _matcher.matcher(commitMessage,parent_commit_id,parent_commit_time,parent_committer);
+                _matcher.matcher(commitMessage,parent_commit_id);
             }
             if(!commitMessages.isEmpty()){
                 String cmd="git checkout "+commitMessages.get(0).getCommitHash();
@@ -111,7 +111,5 @@ public class Git_checkout {
         catch (IOException e){
             e.printStackTrace();
         }
-
-        return commitMessages;
     }
 }

@@ -64,7 +64,7 @@ public class Git_info {
 
     static Git git;
     //历史记录
-    public Commit getLatestInfo(Commit parent_commit) {
+    public Commit getLatestInfo(Commit parent_commit,String branch) {
         String git_path="";
         try {
             Properties properties = new Properties();
@@ -92,9 +92,9 @@ public class Git_info {
                 latest_commit.setCommitHash(revCommit.getName());
                 Timestamp commit_time=CalTime.strToSqlDate(CalTime.checkDate(revCommit.getAuthorIdent().getWhen().toString()),"yyyy-MM-dd HH:mm:ss") ;
                 latest_commit.setCommitTime(commit_time);
-                latest_commit.setBranch("master");
+                latest_commit.setBranch(branch);
                 latest_commit.setCommitter(revCommit.getAuthorIdent().getName());
-                latest_commit.setRepository(git_path);
+                latest_commit.setRepository(git_path+".git");
                 if(revCommit.getParentCount()!=0){
                     Timestamp parent_commit_time=CalTime.strToSqlDate(CalTime.checkDate(revCommit.getParent(0).getAuthorIdent().getWhen().toString()),"yyyy-MM-dd HH:mm:ss") ;
                     parent_commit.setCommitTime(parent_commit_time);
@@ -105,6 +105,7 @@ public class Git_info {
                     parent_commit.setCommitHash(null);
                 }
                 git_id= c.insert(latest_commit);
+                latest_commit.setId(git_id);
                 break;
 
 

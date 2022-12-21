@@ -25,7 +25,7 @@ public class Matcher {
     private static final String SEPARATOR = System.getProperty("file.separator");
     Connection conn = null;
     PreparedStatement ps = null;
-    public void matcher(Commit commit, int parent_commit_id,Timestamp parent_commit_time,String parent_committer){
+    public void matcher(Commit commit, int parent_commit_id){
         List<RawIssue> preRawIssueList = new ArrayList<>();
         List<RawIssue> curRawIssueList = new ArrayList<>();
 
@@ -124,8 +124,24 @@ public class Matcher {
                 e.printStackTrace();
             }
 
+            String curcommitter="";
+            String precommitter="";
+            Timestamp cur_time=commit.getCommitTime();
+            Timestamp pre_time=commit.getCommitTime();
+            try {
+                String sql2 = "select committer,commit_time FROM commit where id=?;";
+                ps = conn.prepareStatement(sql2);
+                ps.setInt(1,commit.getId());
+                ResultSet rs2 = ps.executeQuery();
+                if(rs2.next()){
+                    curcommitter=rs2.getString("committer");
+                    cur_time=rs2.getTimestamp("commit_time");
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
             InstcaseDAO instcaseDAO=new InstcaseDAO();
-            if(preRawIssueList.isEmpty()){
+            if(parent_commit_id==-1){
                 System.out.println("NnParent");
                 for (RawIssue rawIssue : curRawIssueList) {
                     InstCase instcase=new InstCase();
@@ -134,10 +150,10 @@ public class Matcher {
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
                     //System.out.println(commit.getCommitTime());
-                    instcase.setCreateTime(commit.getCommitTime());
-                    instcase.setUpdateTime(commit.getCommitTime());
-                    instcase.setCommitterNew(commit.getCommitter());
-                    instcase.setCommitterLast(commit.getCommitter());
+                    instcase.setCreateTime(cur_time);
+                    instcase.setUpdateTime(cur_time);
+                    instcase.setCommitterNew(curcommitter);
+                    instcase.setCommitterLast(curcommitter);
                     instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
                     instcaseDAO.insert(instcase);
                 }
@@ -146,6 +162,18 @@ public class Matcher {
             AnalyzerUtil.addExtraAttributeInRawIssues(preRawIssueList, commit.getRepository());
             AnalyzerUtil.addExtraAttributeInRawIssues(curRawIssueList, commit.getRepository());
 
+            try {
+                String sql2 = "select committer,commit_time FROM commit where id=?;";
+                ps = conn.prepareStatement(sql2);
+                ps.setInt(1,parent_commit_id);
+                ResultSet rs2 = ps.executeQuery();
+                if(rs2.next()){
+                    precommitter=rs2.getString("committer");
+                    pre_time=rs2.getTimestamp("commit_time");
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
 
             System.out.println("MATCHING"+curRawIssueList.size());
             for (RawIssue rawIssue : curRawIssueList) {
@@ -159,6 +187,7 @@ public class Matcher {
                     e.printStackTrace();
                 }
             }
+
             for (RawIssue rawIssue : curRawIssueList) {
                 if(rawIssue.getMappedRawIssue()==null){
                     InstCase instcase=new InstCase();
@@ -166,10 +195,10 @@ public class Matcher {
                     instcase.setCommitNew(commit.getId());
                     instcase.setStatus(rawIssue.getStatus());
                     instcase.setType(rawIssue.getType());
-                    instcase.setCreateTime(commit.getCommitTime());
-                    instcase.setUpdateTime(commit.getCommitTime());
-                    instcase.setCommitterNew(commit.getCommitter());
-                    instcase.setCommitterLast(commit.getCommitter());
+                    instcase.setCreateTime(cur_time);
+                    instcase.setUpdateTime(cur_time);
+                    instcase.setCommitterNew(curcommitter);
+                    instcase.setCommitterLast(curcommitter);
                     instcase.setDurationTime(0);
                     instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
                     instcaseDAO.insert(instcase);
@@ -189,9 +218,9 @@ public class Matcher {
                             instcase.setCommitNew(commit_new);
                             instcase.setStatus(rawIssue.getStatus());
                             instcase.setType(rawIssue.getType());
-                            instcase.setUpdateTime(commit.getCommitTime());
+                            instcase.setUpdateTime(cur_time);
                             instcase.setCommitterNew(committer_new);
-                            instcase.setCommitterLast(commit.getCommitter());
+                            instcase.setCommitterLast(curcommitter);
                             instcase.setId(id);
                             instcase.setCreateTime(create_time);
                             instcase.setDurationTime((int)((commit.getCommitTime().getTime()-create_time.getTime())/1000));
@@ -204,11 +233,11 @@ public class Matcher {
                             instcase.setCommitNew(parent_commit_id);
                             instcase.setStatus(rawIssue.getStatus());
                             instcase.setType(rawIssue.getType());
-                            instcase.setCreateTime(parent_commit_time);
-                            instcase.setUpdateTime(commit.getCommitTime());
-                            instcase.setCommitterNew(parent_committer);
-                            instcase.setCommitterLast(commit.getCommitter());
-                            instcase.setDurationTime((int)((commit.getCommitTime().getTime()-parent_commit_time.getTime())/1000));
+                            instcase.setCreateTime(pre_time);
+                            instcase.setUpdateTime(cur_time);
+                            instcase.setCommitterNew(precommitter);
+                            instcase.setCommitterLast(curcommitter);
+                            instcase.setDurationTime((int)((cur_time.getTime()-pre_time.getTime())/1000));
                             instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
                             instcaseDAO.insert(instcase);
                         }
@@ -227,7 +256,7 @@ public class Matcher {
             for (RawIssue rawIssue : preRawIssueList) {
                 if(rawIssue.getMappedRawIssue()==null){
                     try{
-                        String loc_sql="select id,create_time,commit_new,committer_new,committer_last FROM instcase where inst_last=?";
+                        String loc_sql="select id,create_time,commit_new,committer_new FROM instcase where inst_last=?";
                         ps = conn.prepareStatement(loc_sql);
                         ps.setInt(1,Integer.parseInt(rawIssue.getUuid()));
                         ResultSet loc_rs = ps.executeQuery();
@@ -236,18 +265,17 @@ public class Matcher {
                         Timestamp create_time=loc_rs.getTimestamp("create_time");
                         int commit_new=loc_rs.getInt("commit_new");
                         String committer_new=loc_rs.getString("committer_new");
-                        String committer_last=loc_rs.getString("committer_last");
                         InstCase instcase=new InstCase();
                         instcase.setCommitNew(commit_new);
                         instcase.setStatus("CLOSED");
                         instcase.setType(rawIssue.getType());
-                        instcase.setUpdateTime(commit.getCommitTime());
+                        instcase.setUpdateTime(cur_time);
                         instcase.setCommitterNew(committer_new);
-                        instcase.setCommitterLast(committer_last);
+                        instcase.setCommitterLast(curcommitter);
                         instcase.setId(id);
                         instcase.setCreateTime(create_time);
                         instcase.setDurationTime((int)((commit.getCommitTime().getTime()-create_time.getTime())/1000));
-                        instcase.setCommitLast(parent_commit_id);
+                        instcase.setCommitLast(commit.getId());
                         instcase.setInstLast(Integer.parseInt(rawIssue.getUuid()));
 
                         instcaseDAO.update(instcase);
