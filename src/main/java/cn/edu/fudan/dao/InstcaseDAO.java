@@ -4,6 +4,7 @@ import cn.edu.fudan.DBConnection;
 import cn.edu.fudan.data.CalTime;
 import cn.edu.fudan.entity.Commit;
 import cn.edu.fudan.entity.InstCase;
+import cn.edu.fudan.entity.Instance;
 
 
 import java.sql.*;
@@ -13,6 +14,7 @@ public class InstcaseDAO {
 
     Connection conn = null;
     PreparedStatement ps = null;
+    InstanceDAO instanceDAO = new InstanceDAO();
 
     public int insert(InstCase instCase) {
         int res = 0;
@@ -109,24 +111,30 @@ public class InstcaseDAO {
         }
     }
 
-    public List<InstCase> getInstByTypeInLatestCommit(String type) {
-        List<InstCase> list = new ArrayList<>();
+    void addToInstanceList(List<Instance> list, ResultSet rs) throws SQLException {
+        while (rs.next()) {
+            list.add(instanceDAO.addToInstance(rs));
+        }
+    }
+
+    public List<Instance> getInstByTypeInLatestCommit(String type) {
+        List<Instance> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
-            String sql = "select commit_hash from commit order by id desc limit 1";
+            String sql = "select max(id) from commit";
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            String commitLast = rs.getString(1);
+            int commitLast = rs.getInt(1);
 
-            String sql2 = "select * from instcase where commit_last=? and type=?";
+            String sql2 = "select * from instance where commit_id=? and type=?";
             ps = conn.prepareStatement(sql2);
 
-            ps.setString(1, commitLast);
+            ps.setInt(1, commitLast);
             ps.setString(2, type);
             rs = ps.executeQuery();
 
-            addToInstcaseList(list, rs);
+            addToInstanceList(list, rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,8 +143,9 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getSortedInstByTimeInLatestCommit(Boolean greater) {
-        List<InstCase> list = new ArrayList<>();
+    public List<String> getSortedInstByTimeInLatestCommit(Boolean greater) {
+        List<Instance> list = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
             String sql = "select max(id) from commit";
@@ -146,20 +155,25 @@ public class InstcaseDAO {
             int commitLast = rs.getInt(1);
 
             String sql2 = greater ?
-                    "select * from instcase where commit_last=? order by duration_time" :
-                    "select * from instcase where commit_last=? order by duration_time desc";
-            ps = conn.prepareStatement(sql2);
+                    "select i.*, ic.duration_time from instance i join (select inst_last, duration_time from instcase where commit_last = ?) ic on i.id = ic.inst_last order by ic.duration_time" :
+                    "select i.*, ic.duration_time from instance i join (select inst_last, duration_time from instcase where commit_last = ?) ic on i.id = ic.inst_last order by ic.duration_time desc";
+            ps = conn.prepareStatement(sql2, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
             ps.setInt(1, commitLast);
             rs = ps.executeQuery();
 
-            addToInstcaseList(list, rs);
+            addToInstanceList(list, rs);
+            rs.first();
+            for (Instance instance : list) {
+                stringList.add("durationTime=" + CalTime.calTime(rs.getInt("duration_time")) + ", " + instance.toString());
+                rs.next();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DBConnection.close(conn, ps);
-        } return list;
+        } return stringList;
     }
 
     public List<Integer> getAvgAndMedOfTimeInLatestCommit(String type) {
@@ -169,23 +183,27 @@ public class InstcaseDAO {
             String sql = "select max(id) from commit";
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            rs.next();
             int commitLast = rs.getInt(1);
 
-            String sql2 = "select round(avg(duration_time)) from instcase where type=?";
+            String sql2 = "select round(avg(duration_time)) from instcase where type=? and commit_last=?";
 
             ps = conn.prepareStatement(sql2);
             ps.setString(1, type);
+            ps.setInt(2, commitLast);
             rs = ps.executeQuery();
+            rs.next();
             list.add(rs.getInt(1));
-
-            String sql3 = "set @rowindex := 0;";
-            ps = conn.prepareStatement(sql3);
-            ps.executeQuery();
-            String sql4 = "select round(avg(duration_time)) from (select @rowindex:=@rowindex+1 as rowindex, duration_time from instcase where type=? order by duration_time) as S where S.rowindex in (floor((@rowindex+1)/2), ceil((@rowindex+1)/2));";
-            ps = conn.prepareStatement(sql4);
-            ps.setString(1, type);
-            rs = ps.executeQuery();
-            list.add(rs.getInt(1));
+//
+//            String sql3 = "";
+//            ps = conn.prepareStatement(sql3);
+//            ps.executeQuery();
+//            String sql4 = "set @rowindex := 0;select round(avg(duration_time)) from (select @rowindex:=@rowindex+1 as rowindex, duration_time from instcase where type=? order by duration_time) as S where S.rowindex in (floor((@rowindex+1)/2), ceil((@rowindex+1)/2));";
+//            ps = conn.prepareStatement(sql4);
+//            ps.setString(1, type);
+//            rs = ps.executeQuery();
+//            rs.next();
+//            list.add(rs.getInt(1));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -211,22 +229,22 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getInstByStatusAndCommitAndType(String status, int commitId, String type) {
-        List<InstCase> list = new ArrayList<>();
+    public List<Instance> getInstByStatusAndCommitAndType(String status, int commitId, String type) {
+        List<Instance> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
             String sql = null;
             if (Objects.equals(status, "new"))
-                sql = "select * from instcase where commit_new=? and type=?";
+                sql = "select * from instance where id in (select inst_last from instcase where commit_new=? and type=?)";
             else if (Objects.equals(status, "fixed"))
-                sql = "select * from instcase where commit_last=? and type=? and status = 'CLOSED'";
+                sql = "select * from instance where id in (select inst_last from instcase where commit_last=? and type=? and status='CLOSED')";
             ps = conn.prepareStatement(sql);
 
             ps.setInt(1, commitId);
             ps.setString(2, type);
             ResultSet rs = ps.executeQuery();
 
-            addToInstcaseList(list, rs);
+            addToInstanceList(list, rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -235,22 +253,22 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getInstByStatusAndTime(String status, Timestamp startTime, Timestamp endTime) {
-        List<InstCase> list = new ArrayList<>();
+    public List<Instance> getInstByStatusAndTimePeriod(String status, Timestamp startTime, Timestamp endTime) {
+        List<Instance> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
-            String sql;
+            String sql = null;
             if (Objects.equals(status, "new"))
-                sql = "select * from instcase where create_time>=? and create_time<=?";
-            else
-                sql = "select * from instcase where status='FIXED' and update_time>=? and update_time<=?";
+                sql = "select * from instance where id in (select inst_last from instcase where create_time>=? and create_time<=?)";
+            else if (Objects.equals(status, "fixed"))
+                sql = "select * from instance where id in (select inst_last from instcase where status='CLOSED' and update_time>=? and update_time<=?)";
             ps = conn.prepareStatement(sql);
 
             ps.setTimestamp(1, startTime);
             ps.setTimestamp(2, endTime);
             ResultSet rs = ps.executeQuery();
 
-            addToInstcaseList(list, rs);
+            addToInstanceList(list, rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -259,21 +277,22 @@ public class InstcaseDAO {
         } return list;
     }
 
-    public List<InstCase> getInstByStatusAndAuthorAndTime(String status1, String status2, String author, Timestamp startTime, Timestamp endTime) {
-        List<InstCase> list = new ArrayList<>();
+    public List<Instance> getInstByStatusAndAuthorAndTimePeriod(String status1, String status2, String author, Timestamp startTime, Timestamp endTime) {
+        List<Instance> list = new ArrayList<>();
         try {
             conn = DBConnection.getConn();
             String sql = null;
-            if (Objects.equals(status1, "new"))
+            if (Objects.equals(status1, "new")) {
                 if (Objects.equals(status2, "self"))
-                    sql = "select * from instcase where committer_new=? and create_time>=? and create_time<=?";
+                    sql = "select * from instance where id in (select inst_last from instcase where committer_new=? and create_time>=? and create_time<=?)";
                 else if (Objects.equals(status2, "others"))
-                    sql = "select * from instcase where committer_new!=? and create_time>=? and create_time<=?";
-            else if (Objects.equals(status1, "fixed"))
+                    sql = "select * from instance where id in (select inst_last from instcase where committer_new!=? and create_time>=? and create_time<=?)";
+            } else if (Objects.equals(status1, "fixed")) {
                 if (Objects.equals(status2, "self"))
-                    sql = "select * from instcase where status='fixed' and update_time>=? and update_time<=? and committer_last=?";
+                    sql = "select * from instance where id in (select inst_last from instcase where status='CLOSED' and committer_last=? and update_time>=? and update_time<=?)";
                 else if (Objects.equals(status2, "others"))
-                    sql = "select * from instcase where status='fixed' and update_time>=? and update_time<=? and committer_last!=?";
+                    sql = "select * from instance where id in (select inst_last from instcase where status='CLOSED' and committer_last!=? and update_time>=? and update_time<=?)";
+            }
             ps = conn.prepareStatement(sql);
 
             ps.setString(1, author);
@@ -281,7 +300,7 @@ public class InstcaseDAO {
             ps.setTimestamp(3, endTime);
             ResultSet rs = ps.executeQuery();
 
-            addToInstcaseList(list, rs);
+            addToInstanceList(list, rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -356,7 +375,7 @@ public class InstcaseDAO {
         try {
             conn = DBConnection.getConn();
 
-            String sql1 = "select type, count(*), avg(duration_time) from instcase where status='changed' and committer_new=? and committer_last=? group by type";
+            String sql1 = "select type, count(*), avg(duration_time) from instcase where status='CLOSED' and committer_new=? and committer_last=? group by type";
             ps = conn.prepareStatement(sql1);
             ps.setString(1, author);
             ps.setString(2, author);
@@ -366,7 +385,7 @@ public class InstcaseDAO {
                 System.out.println(rs.getString(1)+" "+rs.getInt(2)+" "+CalTime.calTime(rs.getInt(3)));
             }
 
-            String sql2 = "select type, count(*), avg(duration_time) from instcase where status='changed' and committer_new!=? and committer_last=? group by type";
+            String sql2 = "select type, count(*), avg(duration_time) from instcase where status='CLOSED' and committer_new!=? and committer_last=? group by type";
             ps = conn.prepareStatement(sql2);
             ps.setString(1, author);
             ps.setString(2, author);
@@ -376,7 +395,7 @@ public class InstcaseDAO {
                 System.out.println(rs.getString(1)+" "+rs.getInt(2)+" "+CalTime.calTime(rs.getInt(3)));
             }
 
-            String sql3 = "select type, count(*), avg(duration_time) from instcase where status='add' and committer_new=? group by type";
+            String sql3 = "select type, count(*), avg(duration_time) from instcase where status='changed' and committer_new=? group by type";
             ps = conn.prepareStatement(sql3);
             ps.setString(1, author);
             rs = ps.executeQuery();
@@ -385,7 +404,7 @@ public class InstcaseDAO {
                 System.out.println(rs.getString(1)+" "+rs.getInt(2)+" "+CalTime.calTime(rs.getInt(3)));
             }
 
-            String sql4 = "select type, count(*), avg(duration_time) from instcase where status='changed' and committer_new=? and committer_last!=? group by type";
+            String sql4 = "select type, count(*), avg(duration_time) from instcase where status='CLOSED' and committer_new=? and committer_last!=? group by type";
             ps = conn.prepareStatement(sql4);
             ps.setString(1, author);
             ps.setString(2, author);

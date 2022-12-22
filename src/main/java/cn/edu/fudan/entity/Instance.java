@@ -69,6 +69,16 @@ public class Instance {
         this.message = message;
     }
 
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", commitId=" + commitId +
+                ", severity='" + severity + '\'' +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                ", author='" + author + '\'' +
+                ", message='" + message + '\'';
+    }
 //    public Timestamp getCreationDate() {
 //        return creationDate;
 //    }

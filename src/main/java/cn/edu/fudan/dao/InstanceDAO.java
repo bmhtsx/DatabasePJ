@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InstanceDAO {
     Connection conn = null;
@@ -42,5 +44,41 @@ public class InstanceDAO {
         } finally {
             DBConnection.close(conn, ps);
         } return res;
+    }
+
+    public Instance addToInstance(ResultSet rs) throws SQLException {
+        Instance instance = new Instance();
+        instance.setId(rs.getInt("id"));
+        instance.setCommitId(rs.getInt("commit_id"));
+        instance.setSeverity(rs.getString("severity"));
+        instance.setType(rs.getString("type"));
+        instance.setStatus(rs.getString("status"));
+        instance.setAuthor(rs.getString("author"));
+        instance.setMessage(rs.getString("message"));
+        return instance;
+    }
+
+    public List<Instance> getTraceInstance(int instanceId) {
+        List<Instance> list = new ArrayList<>();
+        Instance instance;
+        int id = instanceId;
+        try {
+            conn = DBConnection.getConn();
+            String sql = "select * from instance where id=(select parent_id from `match` where child_id=?)";
+            do {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (!rs.next()) break;
+                instance = addToInstance(rs);
+                list.add(instance);
+                id = instance.getId();
+            } while (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.close(conn, ps);
+        } return list;
+
     }
 }
