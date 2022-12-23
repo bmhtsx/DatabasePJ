@@ -1,9 +1,7 @@
-package cn.edu.fudan.service;
+package cn.edu.fudan;
 
-import cn.edu.fudan.CmdExecute;
-import cn.edu.fudan.DBConnection;
 import cn.edu.fudan.data.Git_info;
-import cn.edu.fudan.data.issue_info;
+import cn.edu.fudan.data.Issue_info;
 import cn.edu.fudan.data.Matcher;
 import cn.edu.fudan.entity.Commit;
 
@@ -15,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class scan {
+public class Scan {
 
 
     Connection conn = null;
@@ -61,8 +59,8 @@ public class scan {
 
 
         String s=null;
-        s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys="+project_name+"&additionalFields=_all&s=FILE_LINE&resolved=false");
-        issue_info.toMap(s,commit.getId());
+        s= Issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys="+project_name+"&additionalFields=_all&s=FILE_LINE&resolved=false");
+        Issue_info.toMap(s,commit.getId());
 
         Matcher _matcher =new Matcher();
         _matcher.matcher(commit,parent_commit.getId());

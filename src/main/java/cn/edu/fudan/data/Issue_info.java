@@ -16,7 +16,7 @@ import java.net.URLConnection;
 import java.util.*;
 
 
-public class issue_info {
+public class Issue_info {
     private static final InstanceDAO instanceDAO=new InstanceDAO();
     public static void toMap(String jsonStr,int commit_id) {
         // jsonString转换成Map

@@ -1,6 +1,7 @@
 package cn.edu.fudan.data;
 
 import cn.edu.fudan.CmdExecute;
+import cn.edu.fudan.DBConnection;
 import cn.edu.fudan.dao.CommitDAO;
 import cn.edu.fudan.entity.Commit;
 import org.eclipse.jgit.api.Git;
@@ -73,18 +74,39 @@ public class Git_checkout {
 
                 }
             }
+            Connection conn = DBConnection.getConn();
+            PreparedStatement ps=null;
+            ResultSet rs=null;
+            boolean exists=false;
             for (int i = commitMessages.size()-1; i >=0; i--) {
                 commitMessage=commitMessages.get(i);
                 Commit parentCommitMessage=null;
                 if(i+1<commitMessages.size())parentCommitMessage=commitMessages.get(i+1);
+
+                try{
+                    String sql = "select id FROM commit where commit_hash=? and repository=? and branch=?;";
+                    ps = conn.prepareStatement(sql);
+                    ps.setString(1,commitMessage.getCommitHash());
+                    ps.setString(2,git_path+".git");
+                    ps.setString(3,branchName);
+                    rs = ps.executeQuery();
+                    exists=rs.next();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                if(exists)continue;
+
                 String cmd="git checkout "+commitMessage.getCommitHash();
                 CmdExecute.exeCmd(cmd,git_path);
                 CmdExecute.exeCmd(sonar_cmd+project_name,git_path);
                 CommitDAO c=new CommitDAO();
                 int git_id=c.insert(commitMessage)-1;
+
+                if(i == commitMessages.size()-1)continue;
+
                 String s=null;
-                s=issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys="+project_name+"&additionalFields=_all&s=FILE_LINE&resolved=false");
-                issue_info.toMap(s,git_id);
+                s= Issue_info.httpGet("http://localhost:9000/api/issues/search?componentKeys="+project_name+"&additionalFields=_all&s=FILE_LINE&resolved=false");
+                Issue_info.toMap(s,git_id);
                 commitMessage.setId(git_id);
 
                 int parent_commit_id=-1;
