@@ -25,7 +25,7 @@ public class Scan {
         String project_name="";
         try {
             Properties properties = new Properties();
-            properties.load(new FileReader("src/pj_info.properties"));
+            properties.load(new FileReader("src/pjInfo.properties"));
             String git_path = properties.getProperty("git_path");
             String sonar_cmd = properties.getProperty("sonar_cmd");
             project_name = properties.getProperty("project_name");

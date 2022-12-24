@@ -3,6 +3,7 @@ package cn.edu.fudan;
 import cn.edu.fudan.dao.InstanceDAO;
 import cn.edu.fudan.dao.InstcaseDAO;
 import cn.edu.fudan.data.CalTime;
+import cn.edu.fudan.data.Git_checkout;
 import cn.edu.fudan.entity.InstCase;
 
 import java.io.BufferedReader;
@@ -21,6 +22,48 @@ public class Read {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public static void read() throws IOException {
+        boolean quit=false;
+        do {
+            System.out.println("--------------------------------------------------");
+            System.out.println(" * `scan`: scan local project");
+            System.out.println(" * 'search': query in database");
+            System.out.println(" * `quit`: quit the program");
+            System.out.println("--------------------------------------------------");
+            switch (br.readLine()) {
+                case "scan":
+                    System.out.println("--------------------------------------------------");
+                    System.out.println(" ** `latest`: scan local project seen as latest commit");
+                    System.out.println(" ** `all`: scan all commit in certain branch");
+                    System.out.println("--------------------------------------------------");
+                    switch (br.readLine()) {
+                        case "latest":
+                            System.out.println("Please enter the name of the branch:");
+                            Scan _scan=new Scan();
+                            _scan.scan_latest(br.readLine());
+                            break;
+                        case "all":
+                            System.out.println("Please enter the name of the branch:");
+                            Git_checkout git_checkout=new Git_checkout();
+                            git_checkout.getCommitMessagesInBranch(br.readLine());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "search":
+                    readSearch();
+                    break;
+                case "quit":
+                    quit=true;
+                    break;
+                default:
+                    break;
+            }
+        } while (!quit);
+
+    }
+
+    public static void readSearch() throws IOException {
         String status;
         Timestamp start, end;
         do {

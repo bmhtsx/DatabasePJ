@@ -26,7 +26,7 @@ public class Git_checkout {
         //List<Commit> parentCommitMessages = new ArrayList<>();
         try {
             Properties properties = new Properties();
-            properties.load(new FileReader("src/pj_info.properties"));
+            properties.load(new FileReader("src/pjInfo.properties"));
             String git_path = properties.getProperty("git_path");
             String sonar_cmd = properties.getProperty("sonar_cmd");
             String project_name=properties.getProperty("project_name");

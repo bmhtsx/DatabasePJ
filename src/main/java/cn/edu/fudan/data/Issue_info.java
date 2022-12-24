@@ -165,7 +165,7 @@ public class Issue_info {
         String authString = "";
         try {
             Properties properties = new Properties();
-            properties.load(new FileReader("src/pj_info.properties"));
+            properties.load(new FileReader("src/pjInfo.properties"));
             String account = properties.getProperty("sonar_account");
             String password = properties.getProperty("sonar_password");
             authString=account+':'+password;

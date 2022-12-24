@@ -68,7 +68,7 @@ public class Git_info {
         String git_path="";
         try {
             Properties properties = new Properties();
-            properties.load(new FileReader("src/pj_info.properties"));
+            properties.load(new FileReader("src/pjInfo.properties"));
             git_path = properties.getProperty("git_path");
         } catch (Exception e) {
             e.printStackTrace();

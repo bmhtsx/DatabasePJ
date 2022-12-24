@@ -33,7 +33,7 @@ public class Matcher {
 
 
         try {
-            properties.load(new FileReader("src/pj_info.properties"));
+            properties.load(new FileReader("src/pjInfo.properties"));
             conn = DBConnection.getConn();
             String sql1 = "select id,type,message FROM instance where commit_id=?;";
             ResultSet rs1;
