@@ -21,47 +21,6 @@ import java.util.regex.Pattern;
 import java.util.Properties;
 
 public class Git_info {
-    /**
-     * getMatcher 正则表达式方法
-     * @param regex
-     * @param source
-     * @return
-     */
-    public static String getMatcher(String regex, String source) {
-        String str = "";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(source);
-        while (matcher.find()) {
-            str = matcher.group(1); // 只取第一组
-        }
-        return str;
-    }
-
-    /**
-     * 获取Git本地仓库版本号
-     *
-     * @return versionID 版本号
-     * @throws IOException
-     * @throws GitAPIException
-     */
-    public static String Log(String repositoryDir) throws IOException, GitAPIException {
-        String versionID = "";
-        Repository localRepo;
-        localRepo = new FileRepository(repositoryDir + "/.git");
-        Git git = new Git(localRepo);
-        System.out.println("获取本地");
-        Iterable<RevCommit> iterable = git.log().all().call();
-        for (RevCommit u : iterable) {
-            //版本id
-            String ID = String.valueOf(u.getId());
-            versionID = getMatcher("commit\\s(\\w+)\\s?", ID);
-            break;
-        }
-        git.close();
-        return versionID;
-    }
-
-
     static Git git;
     //历史记录
     public Commit getLatestInfo(Commit parent_commit,String branch) {

@@ -12,8 +12,6 @@ CREATE TABLE `instance` (
     `status` varchar(10) NOT NULL,
     `author` varchar(40) NOT NULL,
     `message` varchar(200) NOT NULL,
---     `creation_date` timestamp NOT NULL,
---     `update_date` timestamp NOT NULL,
     PRIMARY KEY (`id`)
 );
 

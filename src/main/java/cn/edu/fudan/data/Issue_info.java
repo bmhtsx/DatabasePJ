@@ -88,10 +88,7 @@ public class Issue_info {
                                 }
                             default:;
                         }
-                        //System.out.println( entry.getKey().toString()  + "  " +entry.getValue().toString());
                     }
-                    //System.out.println("\n\n");
-                    //if(instance.getSeverity()==null)System.out.println("error");
                     int inst_id=instanceDAO.insert(instance);
                     LocationDAO locationDAO=new LocationDAO();
                     first_location.setInstId(inst_id);
@@ -148,7 +145,6 @@ public class Issue_info {
             in = new BufferedReader(new InputStreamReader(connection.getInputStream(),"UTF-8"));
             String line;
             while ((line = in.readLine()) != null) {
-                //System.out.println(line);
                 result.append(line);
             }
         } catch (Exception e) {
